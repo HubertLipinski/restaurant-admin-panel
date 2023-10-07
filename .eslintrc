@@ -1,7 +1,11 @@
 {
-  "extends": ["@nuxtjs/eslint-config-typescript"],
+  "extends": ["@nuxtjs/eslint-config-typescript", "plugin:nuxt/recommended"],
   "rules": {
-    "no-console": "off",
-    "comma-dangle": [2, "always-multiline"]
+    "comma-dangle": [2, "always-multiline"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "vue/html-self-closing": "off",
+    "vue/singleline-html-element-content-newline": "off"
   }
 }
