@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import * as yup from 'yup'
+
+definePageMeta({
+  layout: 'nonauth',
+})
 interface LoginCredentials {
   login: null | string
   password: null | string
@@ -19,6 +23,7 @@ const onSubmit = () => {
   // eslint-disable-next-line no-console
   console.log(form)
 }
+
 </script>
 
 <template>
