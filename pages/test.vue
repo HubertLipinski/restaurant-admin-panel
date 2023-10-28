@@ -5,7 +5,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div v-for="item in 544">
-    <h1>HELLO!</h1>
-  </div>
+  <h1>test</h1>
 </template>
+
+<style scoped>
+
+</style>
