@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@vueuse/nuxt',
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
   ],
 
   // ui: {
@@ -26,6 +26,12 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
+    },
+  },
+
+  nitro: {
+    devProxy: {
+      host: 'localhost',
     },
   },
 })

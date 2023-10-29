@@ -25,7 +25,7 @@ const items = [
 
 <template>
   <UDropdown :items="items" :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
-    <UButton label="Jan Nowak" variant="ghost" :block="true">
+    <UButton label="Jan Nowak" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
         <UAvatar
           src="https://avatars.githubusercontent.com/u/739984?v=4"
@@ -36,10 +36,13 @@ const items = [
     <template #account="{ item }">
       <div class="text-left">
         <p>
-          Signed in as
+          Zalogowany jako
         </p>
         <p class="truncate font-medium text-gray-900 dark:text-white">
           {{ item.label }}
+        </p>
+        <p class="truncate text-gray-800 dark:text-white">
+          Rola użytkownika
         </p>
       </div>
     </template>

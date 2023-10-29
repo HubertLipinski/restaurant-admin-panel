@@ -1,11 +1,15 @@
 <script setup lang="ts">
 definePageMeta({
+  layout: 'auth',
+  middleware: ['auth'],
   colorMode: 'light',
 })
 </script>
 
 <template>
-  <div v-for="item in 544">
-    <h1>HELLO!</h1>
-  </div>
+  <UContainer>
+    <div class="py-4 mt-4">
+      <h1>INDEX</h1>
+    </div>
+  </UContainer>
 </template>
