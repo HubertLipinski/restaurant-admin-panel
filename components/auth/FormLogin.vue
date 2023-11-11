@@ -39,16 +39,22 @@ async function submit (event: FormSubmitEvent<any>) {
         v-model="state.password"
         type="password"
         size="lg"
-        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
+        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
         autocomplete="password"
         icon="i-heroicons-lock-closed"
       />
     </UFormGroup>
-    <div class="flex justify-between pt-4">
-      <UButton type="submit" class="space-y-4" size="lg" variant="outline" :loading="false">
+    <div class="flex justify-between pt-6">
+      <UButton
+        type="submit"
+        class="space-y-4"
+        size="lg"
+        variant="solid"
+        :loading="false"
+      >
         Zaloguj się
       </UButton>
-      <UButton label="Zarejestruj się" color="gray" variant="link" class="p-0">
+      <UButton label="Zarejestruj się" color="gray" variant="link" class="p-0" to="/register">
         <template #trailing>
           <UIcon name="i-heroicons-arrow-right-20-solid" />
         </template>
