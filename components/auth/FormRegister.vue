@@ -1,35 +1,34 @@
 <script setup lang="ts">
-import { FormError, FormSubmitEvent } from '#ui/types'
+import { FormSubmitEvent } from '#ui/types'
+import { z } from 'zod'
+import { RegisterSchema } from '~/schema/auth/RegisterSchema'
 
 const state = ref({
-  email: null,
-  password: null,
-  password_confirm: null,
-  birthday_date: null,
+  email: '',
+  password: '',
+  passwordConfirm: '',
+  birthdayDate: '',
   agreements: {
     terms: false,
   },
 })
 
-const validate = (state: any): FormError[] => {
-  const errors = []
-  if (!state.email) { errors.push({ path: 'email', message: 'Pole email jest wymagane' }) }
-  if (!state.password) { errors.push({ path: 'password', message: 'Pole hasło jest wymagane' }) }
-  return errors
-}
-async function submit (event: FormSubmitEvent<any>) {
+const submitDisabled = computed(() => !RegisterSchema.safeParse(state.value).success)
+
+async function onSubmit (event: FormSubmitEvent<z.output<typeof RegisterSchema>>) {
   // Do something with data
-  await setTimeout(() => 1 + 1)
-  console.log(event?.data)
+  console.log(event.data)
 }
+
+onErrorCaptured((_) => { return false })
 </script>
 
 <template>
   <UForm
-    :validate="validate"
-    :state="state"
     class="space-y-4 mb-2"
-    @submit="submit"
+    :schema="RegisterSchema"
+    :state="state"
+    @submit="onSubmit"
   >
     <UFormGroup label="Email" name="email">
       <UInput
@@ -50,30 +49,31 @@ async function submit (event: FormSubmitEvent<any>) {
         icon="i-heroicons-lock-closed"
       />
     </UFormGroup>
-    <UFormGroup label="Potwierdź hasło" name="password_confirm">
+    <UFormGroup label="Potwierdź hasło" name="passwordConfirm">
       <UInput
-        v-model="state.password_confirm"
+        v-model="state.passwordConfirm"
         type="password"
         size="lg"
         placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
-        autocomplete="password_confirm"
+        autocomplete="passwordConfirm"
         icon="i-heroicons-lock-closed"
       />
     </UFormGroup>
     <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">
       Hasło powinno składać się z 8 do 20 znaków. Musi zawierać przynajmniej jedną wielką literę, jedną małą literę i jedną cyfrę.
     </p>
-    <UFormGroup label="Data urodzenia" name="birthday_date">
+    <UFormGroup label="Data urodzenia" name="birthdayDate">
       <UInput
-        v-model="state.birthday_date"
+        v-model="state.birthdayDate"
         v-maska
-        data-maska="##-##-####"
+        data-maska="####-##-##"
         data-maska-eager
-        type="text"
+        type="date"
         size="lg"
-        autocomplete="birthday_date"
+        autocomplete="birthdayDate"
         icon="i-heroicons-calendar"
-        placeholder="DD-MM-YYYY"
+        min="1900-01-01"
+        placeholder="YYYY-MM-DD"
       />
     </UFormGroup>
 
@@ -92,6 +92,7 @@ async function submit (event: FormSubmitEvent<any>) {
         size="lg"
         variant="solid"
         :loading="false"
+        :disabled="submitDisabled"
       >
         Zarejestruj
       </UButton>

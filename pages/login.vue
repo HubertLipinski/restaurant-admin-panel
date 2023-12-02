@@ -1,8 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
   colorMode: 'light',
+  pageTransition: {
+    name: 'slide-left',
+    mode: 'out-in',
+  },
 })
-
 </script>
 
 <template>

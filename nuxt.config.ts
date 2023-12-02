@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@vueuse/nuxt',
-    // '@nuxtjs/eslint-module',
+    '@formkit/auto-animate/nuxt',
   ],
 
   // ui: {

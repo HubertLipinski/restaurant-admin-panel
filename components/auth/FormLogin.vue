@@ -1,31 +1,33 @@
 <script setup lang="ts">
-import { FormError, FormSubmitEvent } from '#ui/types'
+import { FormSubmitEvent } from '#ui/types'
+import { z } from 'zod'
+import { LoginSchema } from '~/schema/auth/LoginSchema'
 
 const state = ref({
-  email: undefined,
-  password: undefined,
+  email: '',
+  password: '',
 })
-const validate = (state: any): FormError[] => {
-  const errors = []
-  if (!state.email) { errors.push({ path: 'email', message: 'Pole email jest wymagane' }) }
-  if (!state.password) { errors.push({ path: 'password', message: 'Pole hasło jest wymagane' }) }
-  return errors
-}
-async function submit (event: FormSubmitEvent<any>) {
+
+const form = ref()
+const submitDisabled = computed(() => !LoginSchema.safeParse(state.value).success)
+
+function submitForm (event: FormSubmitEvent<z.output<typeof LoginSchema>>) {
   // Do something with data
-  await setTimeout(() => 1 + 1)
-  console.log(event?.data)
+
+  console.log(event.data)
 }
+onErrorCaptured((_) => { return false })
 </script>
 
 <template>
   <UForm
-    :validate="validate"
-    :state="state"
+    ref="form"
     class="space-y-4 mb-2"
-    @submit="submit"
+    :schema="LoginSchema"
+    :state="state"
+    @submit="submitForm"
   >
-    <UFormGroup label="Email" name="email">
+    <UFormGroup label="Email" name="email" required>
       <UInput
         v-model="state.email"
         size="lg"
@@ -34,7 +36,7 @@ async function submit (event: FormSubmitEvent<any>) {
         icon="i-heroicons-envelope"
       />
     </UFormGroup>
-    <UFormGroup label="Hasło" name="password">
+    <UFormGroup label="Hasło" name="password" required>
       <UInput
         v-model="state.password"
         type="password"
@@ -51,6 +53,7 @@ async function submit (event: FormSubmitEvent<any>) {
         size="lg"
         variant="solid"
         :loading="false"
+        :disabled="submitDisabled"
       >
         Zaloguj się
       </UButton>
