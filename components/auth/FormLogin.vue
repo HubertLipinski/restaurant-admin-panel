@@ -3,6 +3,8 @@ import { FormSubmitEvent } from '#ui/types'
 import { z } from 'zod'
 import { LoginSchema } from '~/schema/auth/LoginSchema'
 
+const store = useUserStore()
+
 const state = ref({
   email: '',
   password: '',
@@ -11,11 +13,15 @@ const state = ref({
 const form = ref()
 const submitDisabled = computed(() => !LoginSchema.safeParse(state.value).success)
 
-function submitForm (event: FormSubmitEvent<z.output<typeof LoginSchema>>) {
-  // Do something with data
-
+async function submitForm (event: FormSubmitEvent<z.output<typeof LoginSchema>>) {
+  // todo this is for mockup only
   console.log(event.data)
+  await setInterval(() => {
+    store.loginUser({ id: 1, name: 'Jan', lastName: 'Kowalski' })
+    navigateTo('/')
+  }, 200)
 }
+
 onErrorCaptured((_) => { return false })
 </script>
 
