@@ -1,12 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
+  ssr: false,
+
   modules: [
     '@nuxt/ui',
     '@vueuse/nuxt',
     '@formkit/auto-animate/nuxt',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@sidebase/nuxt-auth',
   ],
 
   // ui: {
@@ -34,6 +38,16 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       host: 'localhost',
+    },
+  },
+
+  auth: {
+    baseURL: process.env.BASE_URL,
+    provider: {
+      type: 'local',
+      endpoints: {
+
+      },
     },
   },
 })

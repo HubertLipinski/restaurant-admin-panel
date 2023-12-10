@@ -6,11 +6,6 @@ definePageMeta({
     mode: 'out-in',
   },
 })
-
-const store = useUserStore()
-if (store.isAuth) {
-  navigateTo('/', { replace: true })
-}
 </script>
 
 <template>

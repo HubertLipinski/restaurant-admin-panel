@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import TheBreadCrumbs from '~/components/global/TheBreadCrumbs.vue'
 </script>
 
 <template>
@@ -7,14 +7,8 @@
     <TheNavbar />
 
     <div class="flex-grow">
-      <!--      <div class="w-100 bg-slate-100 p-6 mx-auto">-->
-      <!--        <div class="flex justify-between items-center">-->
-      <!--          <div>-->
-      <!--            breadcrumbs-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <div class="w-100 overflow-auto container-content">
+      <TheBreadCrumbs />
+      <div class="w-100 overflow-auto container-content px-10">
         <slot />
       </div>
     </div>

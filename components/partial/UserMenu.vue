@@ -1,42 +1,28 @@
 <script setup lang="ts">
 
-const store = useUserStore()
-
-const logOutUser = () => {
-  store.logOut()
-  navigateTo('/login', { replace: true })
-}
+const { data, signOut } = useAuth()
 
 const items = [
   [{
-    label: store.fullName,
+    label: data?.user?.fullName,
     slot: 'account',
     disabled: true,
   }], [{
     label: 'Ustawienia',
     icon: 'i-heroicons-cog-8-tooth',
   }],
-  // [{
-  //   label: 'Documentation',
-  //   icon: 'i-heroicons-book-open',
-  // }, {
-  //   label: 'Changelog',
-  //   icon: 'i-heroicons-megaphone',
-  // }, {
-  //   label: 'Status',
-  //   icon: 'i-heroicons-signal',
-  // }],
+
   [{
     label: 'Wyloguj się',
     icon: 'i-heroicons-arrow-left-on-rectangle',
-    click: logOutUser,
+    click: signOut,
   }],
 ]
 </script>
 
 <template>
   <UDropdown :items="items" :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
-    <UButton :label="store.fullName ?? '-'" variant="ghost" :block="true" class="justify-evenly">
+    <UButton :label="data?.user?.fullName ?? '-'" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
         <UAvatar
           src="https://avatars.githubusercontent.com/u/739984?v=4"

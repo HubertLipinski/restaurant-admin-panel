@@ -5,13 +5,8 @@ const links = [
     to: '/',
   },
   {
-    label: 'Menu',
-    children: [
-      {
-        label: 'Produkty',
-        to: 'test',
-      },
-    ],
+    label: 'Karty menu',
+    to: '/menu-cards',
   },
 ]
 </script>
@@ -35,7 +30,6 @@ const links = [
             <div class="mb-2">
               {{ link.label }}
             </div>
-            <UVerticalNavigation v-if="link.children" :links="link.children" />
           </div>
         </template>
       </UVerticalNavigation>

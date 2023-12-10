@@ -3,6 +3,8 @@ import { FormSubmitEvent } from '#ui/types'
 import { z } from 'zod'
 import { RegisterSchema } from '~/schema/auth/RegisterSchema'
 
+const { signUp } = useAuth()
+
 const state = ref({
   email: '',
   password: '',
@@ -13,11 +15,22 @@ const state = ref({
   },
 })
 
+const registerError = ref(false)
+
 const submitDisabled = computed(() => !RegisterSchema.safeParse(state.value).success)
 
 async function onSubmit (event: FormSubmitEvent<z.output<typeof RegisterSchema>>) {
-  // Do something with data
-  console.log(event.data)
+  try {
+    await signUp({
+      name: 'Jan Nowak',
+      email: event.data.email,
+      phone: '4777273330',
+      password: event.data.password,
+      password_confirmation: event.data.passwordConfirm,
+    })
+  } catch (error) {
+    registerError.value = true
+  }
 }
 
 onErrorCaptured((_) => { return false })
@@ -30,6 +43,13 @@ onErrorCaptured((_) => { return false })
     :state="state"
     @submit="onSubmit"
   >
+    <UAlert
+      v-if="registerError"
+      title=""
+      color="red"
+      variant="solid"
+      description="Wystąpił błąd podczas rejestracji. Spróbuj ponownie później."
+    />
     <UFormGroup label="Email" name="email">
       <UInput
         v-model="state.email"
