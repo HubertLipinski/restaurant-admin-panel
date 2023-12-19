@@ -9,12 +9,12 @@ const columns = [
     label: 'Nazwa',
   },
   {
-    key: 'items',
-    label: 'Liczba pozycji',
+    key: 'active',
+    label: 'Status',
   },
   {
-    key: 'status',
-    label: 'Status',
+    key: 'items',
+    label: 'Liczba pozycji',
   },
   {
     key: 'created_at',
@@ -29,45 +29,79 @@ const columns = [
     label: 'Akcja',
   },
 ]
-const rows = [
+
+const items = row => [
+  [
+    {
+      label: 'Szczegóły',
+      icon: 'i-heroicons-eye-20-solid',
+      click: async () => await navigateTo({ path: `/menus/${row.id}` }),
+    },
+  ],
+  [
+    {
+      label: 'Edytuj',
+      icon: 'i-heroicons-pencil-square-20-solid',
+      click: () => console.log('Edit', row.id),
+    },
+    {
+      label: 'Duplikuj',
+      icon: 'i-heroicons-document-duplicate-20-solid',
+    },
+  ],
+  [
+    {
+      label: 'Usuń',
+      icon: 'i-heroicons-trash-20-solid',
+      click: () => console.log('Delete', row.id),
+    },
+  ],
+]
+
+const types = [
   {
-    id: 1,
-    name: 'Karta Menu 1',
-    items: '22',
-    status: 'Zaakceptowany',
-    created_at: '2023-01-01',
-    updated_at: '2023-01-01',
+    name: 'Wszystkie',
+    value: 'all',
+  },
+  {
+    name: 'Aktywne',
+    value: 'active',
+  },
+  {
+    name: 'Nieaktywne',
+    value: 'inactive',
   },
 ]
 
-const items = row => [
-  [{
-    label: 'Edytuj',
-    icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row.id),
-  }, {
-    label: 'Duplikuj',
-    icon: 'i-heroicons-document-duplicate-20-solid',
-  }], [{
-    label: 'Usuń',
-    icon: 'i-heroicons-trash-20-solid',
-    click: () => console.log('Delete', row.id),
-  }],
-]
+const type = ref('all')
+const { data, pending } = await useLazyFetch('/api/menus', {
+  query: { type },
+})
+
 </script>
 
 <template>
   <div>
-    <div class="flex py-3.5 border-b border-gray-200 dark:border-gray-700">
-      <!--      <UInput v-model="query" placeholder="Filter people..." />-->
-      <UButton label="Dodaj" size="md" icon="i-heroicons-document-plus" class="ml-auto px-4 py-2" />
+    <div class="flex justify-between items-center dark:border-gray-700 mb-6">
+      <div class="flex items-center">
+        <UFormGroup label="Status">
+          <USelect v-model="type" :options="types" option-attribute="name" />
+        </UFormGroup>
+      </div>
+
+      <UButton label="Dodaj" size="md" icon="i-heroicons-document-plus" />
     </div>
     <UTable
-      :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Loading...' }"
-      class="w-full"
+      :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...' }"
+      class="w-full border-t border-gray-200"
       :columns="columns"
-      :rows="rows"
+      :rows="data"
+      :loading="pending"
     >
+      <template #active-data="{ row }">
+        <span :class="row.active ? 'text-emerald-500' : 'text-rose-500'">{{ row.active ? 'Aktywny' : 'Nieaktywny' }}</span>
+      </template>
+
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-pencil-square" />
@@ -77,13 +111,10 @@ const items = row => [
       <template #empty-state>
         <div class="flex flex-col items-center justify-center py-6 gap-3">
           <span class="italic text-sm">Brak kart menu</span>
-          <UButton label="Dodaj" />
         </div>
       </template>
     </UTable>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

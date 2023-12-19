@@ -2,7 +2,7 @@
 import MenuCardList from '~/components/auth/menu-card/MenuCardList.vue'
 definePageMeta({
   layout: 'auth',
-  // middleware: ['auth'],
+  // middleware: ['auth'], // todo uncomment this after auth is implemented
   colorMode: 'light',
 })
 </script>

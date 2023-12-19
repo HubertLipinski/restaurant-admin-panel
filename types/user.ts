@@ -1,7 +1,8 @@
 export enum UserRole {
   Admin = 'admin',
-  Owner = 'owner',
-  User = 'user'
+  Waiter = 'waiter',
+  Kitchen = 'kitchen',
+  Guest = 'guest'
 }
 
 export interface User {

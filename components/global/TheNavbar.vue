@@ -6,7 +6,7 @@ const links = [
   },
   {
     label: 'Karty menu',
-    to: '/menu-cards',
+    to: '/menus',
   },
 ]
 </script>

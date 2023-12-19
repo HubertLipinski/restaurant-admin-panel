@@ -46,8 +46,16 @@ export default defineNuxtConfig({
     provider: {
       type: 'local',
       endpoints: {
-
+        // todo: add endpoints
       },
     },
+  },
+
+  runtimeConfig: {
+    public: {
+      apiUrl: '',
+      appMode: '',
+      baseUrl: '',
+    }
   },
 })
