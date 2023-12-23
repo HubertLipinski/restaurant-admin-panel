@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FormSubmitEvent } from '#ui/types'
 import { z } from 'zod'
 import { LoginSchema } from '~/schema/auth/LoginSchema'
 
@@ -13,7 +12,7 @@ const state = ref({
 const form = ref()
 const submitDisabled = computed(() => !LoginSchema.safeParse(state.value).success)
 
-async function submitForm (event: FormSubmitEvent<z.output<typeof LoginSchema>>) {
+async function submitForm (event: Event<z.output<typeof LoginSchema>>) {
   await signIn({ email: event.data.email, password: event.data.password })
 }
 

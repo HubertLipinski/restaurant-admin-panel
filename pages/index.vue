@@ -1,8 +1,11 @@
 <script setup lang="ts">
+useHead({
+  title: 'Index',
+})
+
 definePageMeta({
   layout: 'auth',
   // middleware: ['auth'],
-  colorMode: 'light',
 })
 </script>
 

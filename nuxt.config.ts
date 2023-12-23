@@ -8,14 +8,12 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@vueuse/nuxt',
     '@formkit/auto-animate/nuxt',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
     '@sidebase/nuxt-auth',
   ],
 
-  // ui: {
-  //   global: true,
-  // },
+  ui: {
+    global: true,
+  },
 
   css: ['~/assets/css/main.css'],
 
@@ -28,6 +26,8 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      titleTemplate: '%s | ' + process.env.APP_TITLE,
+      title: 'Panel' || '',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -56,6 +56,10 @@ export default defineNuxtConfig({
       apiUrl: '',
       appMode: '',
       baseUrl: '',
-    }
+    },
+  },
+
+  colorMode: {
+    preference: 'light',
   },
 })

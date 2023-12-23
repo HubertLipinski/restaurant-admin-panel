@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const columns = [
   {
     key: 'id',
@@ -58,7 +59,7 @@ const items = row => [
   ],
 ]
 
-const types = [
+const types: MenuType[] = [
   {
     name: 'Wszystkie',
     value: 'all',
@@ -74,9 +75,12 @@ const types = [
 ]
 
 const type = ref('all')
-const { data, pending } = await useLazyFetch('/api/menus', {
-  query: { type },
-})
+
+const { pending, data: menus } = await useLazyAsyncData(
+  'menus',
+  () => $fetch('/api/menus', { query: { type: type.value } }),
+  { watch: type },
+)
 
 </script>
 
@@ -88,14 +92,12 @@ const { data, pending } = await useLazyFetch('/api/menus', {
           <USelect v-model="type" :options="types" option-attribute="name" />
         </UFormGroup>
       </div>
-
-      <UButton label="Dodaj" size="md" icon="i-heroicons-document-plus" />
     </div>
     <UTable
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...' }"
       class="w-full border-t border-gray-200"
       :columns="columns"
-      :rows="data"
+      :rows="menus"
       :loading="pending"
     >
       <template #active-data="{ row }">

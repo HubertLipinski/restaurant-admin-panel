@@ -1,6 +1,9 @@
 <script setup lang="ts">
+useHead({
+  title: 'Logowanie',
+})
+
 definePageMeta({
-  colorMode: 'light',
   pageTransition: {
     name: 'slide-left',
     mode: 'out-in',

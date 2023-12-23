@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FormSubmitEvent } from '#ui/types'
 import { z } from 'zod'
 import { RegisterSchema } from '~/schema/auth/RegisterSchema'
 
@@ -19,8 +18,9 @@ const registerError = ref(false)
 
 const submitDisabled = computed(() => !RegisterSchema.safeParse(state.value).success)
 
-async function onSubmit (event: FormSubmitEvent<z.output<typeof RegisterSchema>>) {
+async function onSubmit (event: Event<z.output<typeof RegisterSchema>>) {
   try {
+    // TODO
     await signUp({
       name: 'Jan Nowak',
       email: event.data.email,
