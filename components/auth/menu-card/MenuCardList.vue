@@ -1,87 +1,9 @@
 <script setup lang="ts">
+const store = useMenuStore()
 
-const columns = [
-  {
-    key: 'id',
-    label: 'ID',
-  },
-  {
-    key: 'name',
-    label: 'Nazwa',
-  },
-  {
-    key: 'active',
-    label: 'Status',
-  },
-  {
-    key: 'items',
-    label: 'Liczba pozycji',
-  },
-  {
-    key: 'created_at',
-    label: 'Data utworzenia',
-  },
-  {
-    key: 'updated_at',
-    label: 'Data edycji',
-  },
-  {
-    key: 'actions',
-    label: 'Akcja',
-  },
-]
+await store.fetchData()
 
-const items = row => [
-  [
-    {
-      label: 'Szczegóły',
-      icon: 'i-heroicons-eye-20-solid',
-      click: async () => await navigateTo({ path: `/menus/${row.id}` }),
-    },
-  ],
-  [
-    {
-      label: 'Edytuj',
-      icon: 'i-heroicons-pencil-square-20-solid',
-      click: () => console.log('Edit', row.id),
-    },
-    {
-      label: 'Duplikuj',
-      icon: 'i-heroicons-document-duplicate-20-solid',
-    },
-  ],
-  [
-    {
-      label: 'Usuń',
-      icon: 'i-heroicons-trash-20-solid',
-      click: () => console.log('Delete', row.id),
-    },
-  ],
-]
-
-const types: MenuType[] = [
-  {
-    name: 'Wszystkie',
-    value: 'all',
-  },
-  {
-    name: 'Aktywne',
-    value: 'active',
-  },
-  {
-    name: 'Nieaktywne',
-    value: 'inactive',
-  },
-]
-
-const type = ref('all')
-
-const { pending, data: menus } = await useLazyAsyncData(
-  'menus',
-  () => $fetch('/api/menus', { query: { type: type.value } }),
-  { watch: type },
-)
-
+const pending = computed(() => store.loading)
 </script>
 
 <template>
@@ -89,15 +11,15 @@ const { pending, data: menus } = await useLazyAsyncData(
     <div class="flex justify-between items-center dark:border-gray-700 mb-6">
       <div class="flex items-center">
         <UFormGroup label="Status">
-          <USelect v-model="type" :options="types" option-attribute="name" />
+          <USelect v-model="store.filterType" :options="store.filterOptions" option-attribute="name" />
         </UFormGroup>
       </div>
     </div>
     <UTable
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...' }"
       class="w-full border-t border-gray-200"
-      :columns="columns"
-      :rows="menus"
+      :columns="store.columns"
+      :rows="store.list"
       :loading="pending"
     >
       <template #active-data="{ row }">
@@ -105,7 +27,11 @@ const { pending, data: menus } = await useLazyAsyncData(
       </template>
 
       <template #actions-data="{ row }">
-        <UDropdown :items="items(row)">
+        <UDropdown :items="store.rowActions(row)">
+          <template #item="{ item }">
+            <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500" dynamic />
+            <span class="truncate">{{ item.label }}</span>
+          </template>
           <UButton color="gray" variant="ghost" icon="i-heroicons-pencil-square" />
         </UDropdown>
       </template>

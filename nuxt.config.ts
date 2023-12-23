@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@formkit/auto-animate/nuxt',
     '@sidebase/nuxt-auth',
+    '@pinia/nuxt',
   ],
 
   ui: {

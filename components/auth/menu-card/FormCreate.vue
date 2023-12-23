@@ -28,6 +28,8 @@ async function submitForm (event: Event<z.output<typeof FormSchema>>) {
       <hr class="my-4">
     </div>
 
+    <p>todo: select dishes</p>
+
     <UButton
       type="submit"
       size="lg"

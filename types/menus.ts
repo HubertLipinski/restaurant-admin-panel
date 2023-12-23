@@ -1,5 +1,5 @@
 export interface Menu {
-    int: number,
+    id: number,
     name: string,
     active: boolean,
     created_at: string | null,
