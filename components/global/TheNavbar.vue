@@ -1,14 +1,22 @@
 <script setup lang="ts">
-const links = [
-  {
-    label: 'Strona główna',
-    to: '/',
-  },
-  {
-    label: 'Karty menu',
-    to: '/menus',
-  },
-]
+import type { VerticalNavigationLink } from '#ui/types'
+import type { ComputedGetter } from 'vue'
+
+const route = useRouter()
+
+const links: ComputedGetter<VerticalNavigationLink[]> = computed(() => {
+  return [
+    {
+      label: 'Strona główna',
+      to: '/',
+    },
+    {
+      label: 'Karty menu',
+      to: '/menus',
+      active: route.currentRoute.value.path.includes('menus'),
+    },
+  ]
+})
 </script>
 
 <template>
@@ -25,8 +33,8 @@ const links = [
     <ul class="flex flex-col flex-grow">
       <UVerticalNavigation :links="links">
         <template #default="{ link }">
-          <div class="relative text-left w-full">
-            <div class="mb-2">
+          <div class="relative text-left w-full my-3">
+            <div>
               {{ link.label }}
             </div>
           </div>

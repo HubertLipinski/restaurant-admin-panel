@@ -4,17 +4,7 @@ export default defineNuxtConfig({
 
   ssr: false,
 
-  modules: [
-    '@nuxt/ui',
-    '@vueuse/nuxt',
-    '@formkit/auto-animate/nuxt',
-    '@sidebase/nuxt-auth',
-    '@pinia/nuxt',
-  ],
-
-  ui: {
-    global: true,
-  },
+  modules: ['@nuxt/ui', '@vueuse/nuxt', '@formkit/auto-animate/nuxt', '@sidebase/nuxt-auth', '@pinia/nuxt'],
 
   css: ['~/assets/css/main.css'],
 
@@ -29,10 +19,7 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: '%s | ' + process.env.APP_TITLE,
       title: 'Panel' || '',
-      meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      ],
+      meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },
 

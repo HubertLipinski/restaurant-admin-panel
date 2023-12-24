@@ -7,6 +7,7 @@ useHead({
 definePageMeta({
   layout: 'auth',
   // middleware: ['auth'], // todo uncomment this after auth is implemented
+  name: 'Karty menu',
 })
 </script>
 

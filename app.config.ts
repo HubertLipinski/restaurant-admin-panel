@@ -2,8 +2,12 @@ export default defineAppConfig({
   ui: {
     primary: 'blue',
     gray: 'cool',
-    container: {
-      // constrained: 'max-w-7xl',
+    notifications: {
+      position: 'top-0 bottom-auto',
     },
+    icons: {
+      dynamic: true,
+    },
+    global: true,
   },
 })

@@ -1,11 +1,45 @@
 <script setup lang="ts">
+import type { Menu } from '~/types/menus'
+import ConfirmModal from '~/components/global/ConfirmModal.vue'
+
 const store = useMenuStore()
+const { columns, list } = storeToRefs(store)
+const { isRevealed, reveal, confirm, cancel } = useConfirmDialog()
 
 await store.fetchData()
-
 const pending = computed(() => store.loading)
 
-const { columns, list } = storeToRefs(store)
+async function openConfirm(id: number) {
+  const { isCanceled } = await reveal()
+  if (!isCanceled) {
+    await store.deleteMenu(id)
+    await store.fetchData()
+  }
+}
+
+const rowActions = (row: Menu) => [
+  [
+    {
+      label: 'Szczegóły',
+      icon: 'i-heroicons-eye-20-solid',
+      click: async () => await navigateTo({ path: `/menus/${row.id}` }),
+    },
+  ],
+  [
+    {
+      label: 'Edytuj',
+      icon: 'i-heroicons-pencil-square-20-solid',
+      click: async () => await navigateTo({ path: `/menus/${row.id}/edit` }),
+    },
+  ],
+  [
+    {
+      label: 'Usuń',
+      icon: 'i-heroicons-trash-20-solid',
+      click: () => openConfirm(row.id),
+    },
+  ],
+]
 </script>
 
 <template>
@@ -24,13 +58,15 @@ const { columns, list } = storeToRefs(store)
       :rows="list"
       :loading="pending">
       <template #active-data="{ row }">
-        <span :class="row.active ? 'text-emerald-500' : 'text-rose-500'">{{
-          row.active ? 'Aktywny' : 'Nieaktywny'
-        }}</span>
+        <UBadge
+          size="sm"
+          :label="row.active ? 'Aktywny' : 'Nieaktywny'"
+          :color="row.active ? 'green' : 'rose'"
+          variant="outline" />
       </template>
 
       <template #actions-data="{ row }">
-        <UDropdown :items="store.rowActions(row)">
+        <UDropdown :items="rowActions(row)">
           <template #item="{ item }">
             <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500" dynamic />
             <span class="truncate">{{ item.label }}</span>
@@ -45,6 +81,8 @@ const { columns, list } = storeToRefs(store)
         </div>
       </template>
     </UTable>
+
+    <ConfirmModal :show="isRevealed" :confirm="confirm" :cancel="cancel" />
   </div>
 </template>
 

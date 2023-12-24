@@ -2,6 +2,15 @@
 import { z } from 'zod'
 import { FormSchema } from '~/schema/auth/menu-card/FormSchema'
 
+interface MenuCardFormProps {
+  method?: 'create' | 'edit'
+  menu?: Menu
+}
+
+const props = withDefaults(defineProps<MenuCardFormProps>(), {
+  method: 'create',
+})
+
 const store = useMenuStore()
 
 const state = ref({
@@ -10,9 +19,14 @@ const state = ref({
   // dishes: [],
 })
 
+if (props.menu) {
+  state.value.name = props.menu.name
+  state.value.active = props.menu.active
+}
+
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
-  store.createMenu(event.data)
+  props.method === 'create' ? store.createMenu(event.data) : store.updateMenu(props.menu.id, event.data)
   await navigateTo('/menus')
 }
 </script>
@@ -33,7 +47,7 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
     <p>todo: select dishes</p>
 
     <UButton type="submit" size="lg" class="float-right" variant="solid" :loading="false" :disabled="submitDisabled">
-      Zapisz
+      {{ props.method === 'create' ? 'Zapisz' : 'Aktualizuj' }}
     </UButton>
   </UForm>
 </template>
