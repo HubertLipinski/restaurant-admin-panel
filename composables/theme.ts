@@ -1,1 +1,1 @@
-export const theme = () :string => 'light'
+export const theme = (): string => 'light'

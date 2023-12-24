@@ -17,12 +17,11 @@ const links = [
       variant="ghost"
       size="lg"
       to="/"
-      class="inline-flex text-xl sm:text-2xl pt-5 hover:bg-slate-200 hover:text-primary-400"
-    >
+      class="inline-flex text-xl sm:text-2xl pt-5 hover:bg-slate-200 hover:text-primary-400">
       <span>Panel admina</span>
       <UIcon name="i-heroicons-light-bulb" />
     </UButton>
-    <hr class="my-2 bg-primary">
+    <hr class="my-2 bg-primary" />
     <ul class="flex flex-col flex-grow">
       <UVerticalNavigation :links="links">
         <template #default="{ link }">
@@ -38,6 +37,4 @@ const links = [
   </nav>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

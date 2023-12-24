@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 definePageMeta({
   layout: 'auth',
   // middleware: ['auth'], // todo uncomment this after auth is implemented
@@ -28,6 +27,4 @@ useHead({
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -2,7 +2,7 @@ export enum UserRole {
   Admin = 'admin',
   Waiter = 'waiter',
   Kitchen = 'kitchen',
-  Guest = 'guest'
+  Guest = 'guest',
 }
 
 export interface User {

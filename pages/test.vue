@@ -8,6 +8,4 @@ definePageMeta({
   <h1>test</h1>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
 import { defu } from 'defu'
 import type { UseFetchOptions } from '#app'
 
-export function useApiFetch<T> (url: string | (() => string), options: UseFetchOptions<T> = {}) {
+export function useApiFetch<T>(url: string | (() => string), options: UseFetchOptions<T> = {}) {
   const { token } = useAuth()
   const config = useRuntimeConfig()
 
@@ -10,15 +10,13 @@ export function useApiFetch<T> (url: string | (() => string), options: UseFetchO
     key: url,
 
     // set user token if connected
-    headers: token.value
-      ? { Authorization: `Bearer ${token.value}` }
-      : {},
+    headers: token.value ? { Authorization: `Bearer ${token.value}` } : {},
 
-    onResponse (_ctx) {
+    onResponse(_ctx) {
       // _ctx.response._data = new myBusinessResponse(_ctx.response._data)
     },
 
-    onResponseError (_ctx) {
+    onResponseError(_ctx) {
       // throw new myBusinessError()
     },
   }

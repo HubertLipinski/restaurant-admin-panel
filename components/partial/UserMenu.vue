@@ -1,46 +1,48 @@
 <script setup lang="ts">
-
 const { data, signOut } = useAuth()
 
 const items = [
-  [{
-    label: data?.user?.fullName,
-    slot: 'account',
-    disabled: true,
-  }], [{
-    label: 'Ustawienia',
-    icon: 'i-heroicons-cog-8-tooth',
-  }],
+  [
+    {
+      label: data?.user?.fullName,
+      slot: 'account',
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: 'Ustawienia',
+      icon: 'i-heroicons-cog-8-tooth',
+    },
+  ],
 
-  [{
-    label: 'Wyloguj się',
-    icon: 'i-heroicons-arrow-left-on-rectangle',
-    click: signOut,
-  }],
+  [
+    {
+      label: 'Wyloguj się',
+      icon: 'i-heroicons-arrow-left-on-rectangle',
+      click: signOut,
+    },
+  ],
 ]
 </script>
 
 <template>
-  <UDropdown :items="items" :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
+  <UDropdown
+    :items="items"
+    :ui="{ item: { disabled: 'cursor-text select-text' } }"
+    :popper="{ placement: 'bottom-start' }">
     <UButton :label="data?.user?.fullName ?? '-'" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
-        <UAvatar
-          src="https://avatars.githubusercontent.com/u/739984?v=4"
-          size="md"
-        />
+        <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" size="md" />
       </template>
     </UButton>
     <template #account="{ item }">
       <div class="text-left">
-        <p>
-          Zalogowany jako
-        </p>
+        <p>Zalogowany jako</p>
         <p class="truncate font-medium text-gray-900 dark:text-white">
           {{ item.label }}
         </p>
-        <p class="truncate text-gray-800 dark:text-white">
-          Rola użytkownika
-        </p>
+        <p class="truncate text-gray-800 dark:text-white">Rola użytkownika</p>
       </div>
     </template>
     <template #item="{ item }">
@@ -50,6 +52,4 @@ const items = [
   </UDropdown>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

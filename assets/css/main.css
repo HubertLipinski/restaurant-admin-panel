@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .container-content {
-    /*max-height: calc(100vh - 72px);*/
-    max-height: calc(100vh);
+  /*max-height: calc(100vh - 72px);*/
+  max-height: calc(100vh);
 }
 
 /*route animations*/
@@ -17,21 +17,21 @@ body {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-    transition: all 0.2s;
+  transition: all 0.2s;
 }
 .slide-left-enter-from {
-    opacity: 0;
-    transform: translate(50px, 0);
+  opacity: 0;
+  transform: translate(50px, 0);
 }
 .slide-left-leave-to {
-    opacity: 0;
-    transform: translate(-50px, 0);
+  opacity: 0;
+  transform: translate(-50px, 0);
 }
 .slide-right-enter-from {
-    opacity: 0;
-    transform: translate(-50px, 0);
+  opacity: 0;
+  transform: translate(-50px, 0);
 }
 .slide-right-leave-to {
-    opacity: 0;
-    transform: translate(50px, 0);
+  opacity: 0;
+  transform: translate(50px, 0);
 }

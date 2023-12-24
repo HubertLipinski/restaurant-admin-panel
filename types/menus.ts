@@ -1,9 +1,9 @@
 export interface Menu {
-    id: number,
-    name: string,
-    active: boolean,
-    created_at: string | null,
-    updated_at: string | null,
+  id: number
+  name: string
+  active: boolean
+  created_at: string | null
+  updated_at: string | null
 }
 
 export interface MenuType {

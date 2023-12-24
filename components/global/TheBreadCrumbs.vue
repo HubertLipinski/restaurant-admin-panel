@@ -8,13 +8,10 @@
       <div class="flex justify-between items-center">
         <UBreadcrumb
           divider=">"
-          :links="[{ label: 'Start', to: '/' }, { label: 'Navigation' }, { label: 'Breadcrumb' }]"
-        />
+          :links="[{ label: 'Start', to: '/' }, { label: 'Navigation' }, { label: 'Breadcrumb' }]" />
       </div>
     </UContainer>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
