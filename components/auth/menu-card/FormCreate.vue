@@ -2,17 +2,19 @@
 import { z } from 'zod'
 import { FormSchema } from '~/schema/auth/menu-card/FormSchema'
 
+const store = useMenuStore()
+
 const state = ref({
   name: '',
   active: true,
-  dishes: [],
+  // dishes: [],
 })
 
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
-async function submitForm (event: Event<z.output<typeof FormSchema>>) {
-  console.log(event.data)
+async function submitForm(event: Event<z.output<typeof FormSchema>>) {
+  store.createMenu(event.data)
+  await navigateTo('/menus')
 }
-
 </script>
 
 <template>
@@ -25,24 +27,15 @@ async function submitForm (event: Event<z.output<typeof FormSchema>>) {
     </UFormGroup>
 
     <div class="py-2">
-      <hr class="my-4">
+      <hr class="my-4" />
     </div>
 
     <p>todo: select dishes</p>
 
-    <UButton
-      type="submit"
-      size="lg"
-      class="float-right"
-      variant="solid"
-      :loading="false"
-      :disabled="submitDisabled"
-    >
+    <UButton type="submit" size="lg" class="float-right" variant="solid" :loading="false" :disabled="submitDisabled">
       Zapisz
     </UButton>
   </UForm>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

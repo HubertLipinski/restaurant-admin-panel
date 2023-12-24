@@ -48,7 +48,7 @@ export const useMenuStore = defineStore('menu', () => {
     ],
   ]
 
-  const columns: Ref<{ key: string, label: string }[]> = ref([
+  const columns: Ref<{ key: string; label: string }[]> = ref([
     {
       key: 'id',
       label: 'ID',
@@ -86,6 +86,11 @@ export const useMenuStore = defineStore('menu', () => {
     loading.value = false
   }
 
+  async function createMenu(data: Menu): void {
+    console.log('create menu data: ', data)
+    // todo: post to api
+  }
+
   watch(filterType, async (): void => {
     await fetchData()
   })
@@ -93,10 +98,11 @@ export const useMenuStore = defineStore('menu', () => {
   return {
     loading,
     list,
-    fetchData,
     rowActions,
     filterOptions,
     filterType,
     columns,
+    fetchData,
+    createMenu,
   }
 })

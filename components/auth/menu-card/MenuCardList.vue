@@ -4,6 +4,8 @@ const store = useMenuStore()
 await store.fetchData()
 
 const pending = computed(() => store.loading)
+
+const { columns, list } = storeToRefs(store)
 </script>
 
 <template>
@@ -18,12 +20,13 @@ const pending = computed(() => store.loading)
     <UTable
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...' }"
       class="w-full border-t border-gray-200"
-      :columns="store.columns"
-      :rows="store.list"
-      :loading="pending"
-    >
+      :columns="columns"
+      :rows="list"
+      :loading="pending">
       <template #active-data="{ row }">
-        <span :class="row.active ? 'text-emerald-500' : 'text-rose-500'">{{ row.active ? 'Aktywny' : 'Nieaktywny' }}</span>
+        <span :class="row.active ? 'text-emerald-500' : 'text-rose-500'">{{
+          row.active ? 'Aktywny' : 'Nieaktywny'
+        }}</span>
       </template>
 
       <template #actions-data="{ row }">
