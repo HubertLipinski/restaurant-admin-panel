@@ -9,6 +9,7 @@ interface MenuCardFormProps {
 
 const props = withDefaults(defineProps<MenuCardFormProps>(), {
   method: 'create',
+  menu: null,
 })
 
 const store = useMenuStore()

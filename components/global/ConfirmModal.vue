@@ -1,5 +1,6 @@
 <script setup lang="ts">
 interface ConfirmModalProps {
+  prompt: string
   show: boolean
   confirm: () => Promise<unknown>
   cancel: () => Promise<unknown>
@@ -23,7 +24,7 @@ const props = defineProps<ConfirmModalProps>()
         </div>
       </template>
       <div class="flex flex-col gap-y-3">
-        <p class="pb-3">Czy na pewno chcesz usunąć tę kartę?</p>
+        <p class="pb-3">{{ props.prompt }}</p>
         <div>
           <UButton color="primary" variant="solid" size="lg" class="mr-3" @click="props.confirm">Tak</UButton>
           <UButton color="rose" variant="outline" size="lg" @click="props.cancel">Nie</UButton>

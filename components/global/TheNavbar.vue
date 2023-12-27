@@ -11,6 +11,11 @@ const links: ComputedGetter<VerticalNavigationLink[]> = computed(() => {
       to: '/',
     },
     {
+      label: 'Potrawy',
+      to: '/dishes',
+      active: route.currentRoute.value.path.includes('dishes'),
+    },
+    {
       label: 'Karty menu',
       to: '/menus',
       active: route.currentRoute.value.path.includes('menus'),

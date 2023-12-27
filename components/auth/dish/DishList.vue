@@ -1,35 +1,37 @@
 <script setup lang="ts">
-import type { Menu } from '~/types/menus'
 import ConfirmModal from '~/components/global/ConfirmModal.vue'
 
-const store = useMenuStore()
+const store = useDishStore()
 const { columns, list } = storeToRefs(store)
 const { isRevealed, reveal, confirm, cancel } = useConfirmDialog()
 
-await store.fetchData()
+onMounted(async () => {
+  await store.fetchData()
+})
+
 const pending = computed(() => store.loading)
 
 async function openConfirm(id: number) {
   const { isCanceled } = await reveal()
   if (!isCanceled) {
-    await store.deleteMenu(id)
+    await store.deleteDish(id)
     await store.fetchData()
   }
 }
 
-const rowActions = (row: Menu) => [
+const rowActions = (row: Dish) => [
   [
     {
       label: 'Szczegóły',
       icon: 'i-heroicons-eye-20-solid',
-      click: async () => await navigateTo({ path: `/menus/${row.id}` }),
+      click: async () => await navigateTo({ path: `/dishes/${row.id}` }),
     },
   ],
   [
     {
       label: 'Edytuj',
       icon: 'i-heroicons-pencil-square-20-solid',
-      click: async () => await navigateTo({ path: `/menus/${row.id}/edit` }),
+      click: async () => await navigateTo({ path: `/dishes/${row.id}/edit` }),
     },
   ],
   [
@@ -44,19 +46,16 @@ const rowActions = (row: Menu) => [
 
 <template>
   <div>
-    <div class="flex justify-between items-center dark:border-gray-700 mb-6">
-      <div class="flex items-center">
-        <UFormGroup label="Status">
-          <USelect v-model="store.filterType" :options="store.filterOptions" option-attribute="name" />
-        </UFormGroup>
-      </div>
-    </div>
     <UTable
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...' }"
       class="w-full border-t border-gray-200"
       :columns="columns"
       :rows="list"
       :loading="pending">
+      <template #imageUrl-data="{ row }">
+        <img v-if="row.imageUrl" :src="row.imageUrl" :alt="row.name" class="max-h-[200px] max-w-[200px] w-100" />
+        <span v-else>Brak</span>
+      </template>
       <template #active-data="{ row }">
         <UBadge
           size="sm"
@@ -77,16 +76,15 @@ const rowActions = (row: Menu) => [
 
       <template #empty-state>
         <div class="flex flex-col items-center justify-center py-6 gap-3">
-          <span class="italic text-sm">Brak kart menu</span>
+          <span class="italic text-sm">Brak potraw</span>
         </div>
       </template>
     </UTable>
-
     <ConfirmModal
       :show="isRevealed"
       :confirm="confirm"
       :cancel="cancel"
-      prompt="Czy na pewno chcesz usunąć tę kartę?" />
+      prompt="Czy na pewno chcesz usunąć tę potrawę?" />
   </div>
 </template>
 
