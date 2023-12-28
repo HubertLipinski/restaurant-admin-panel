@@ -1,8 +1,8 @@
-export enum UserPrivilegesLevel {
-  Admin = 0,
-  Waiter = 1,
-  Kitchen = 2,
-  Guest = 3,
+export const enum UserPrivilegesLevel {
+  Admin = <number>0,
+  Waiter = <number>1,
+  Kitchen = <number>2,
+  Guest = <number>3,
 }
 
 export interface User {

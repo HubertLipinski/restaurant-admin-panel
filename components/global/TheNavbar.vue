@@ -1,27 +1,10 @@
 <script setup lang="ts">
-import type { VerticalNavigationLink } from '#ui/types'
-import type { ComputedGetter } from 'vue'
+const config = useRuntimeConfig()
+const title = config.public.appTitle
 
-const route = useRouter()
+const store = useNavStore()
 
-const links: ComputedGetter<VerticalNavigationLink[]> = computed(() => {
-  return [
-    {
-      label: 'Strona główna',
-      to: '/',
-    },
-    {
-      label: 'Potrawy',
-      to: '/dishes',
-      active: route.currentRoute.value.path.includes('dishes'),
-    },
-    {
-      label: 'Karty menu',
-      to: '/menus',
-      active: route.currentRoute.value.path.includes('menus'),
-    },
-  ]
-})
+const { roleBasedNavigation } = storeToRefs(store)
 </script>
 
 <template>
@@ -31,12 +14,12 @@ const links: ComputedGetter<VerticalNavigationLink[]> = computed(() => {
       size="lg"
       to="/"
       class="inline-flex text-xl sm:text-2xl pt-5 hover:bg-slate-200 hover:text-primary-400">
-      <span>Panel admina</span>
+      <span>{{ title }}</span>
       <UIcon name="i-heroicons-light-bulb" />
     </UButton>
     <hr class="my-2 bg-primary" />
     <ul class="flex flex-col flex-grow">
-      <UVerticalNavigation :links="links">
+      <UVerticalNavigation :links="roleBasedNavigation">
         <template #default="{ link }">
           <div class="relative text-left w-full my-3">
             <div>

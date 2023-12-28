@@ -13,7 +13,7 @@ const form = ref()
 const submitDisabled = computed(() => !LoginSchema.safeParse(state.value).success)
 
 async function submitForm(event: Event<z.output<typeof LoginSchema>>) {
-  await signIn({ username: event.data.email, password: event.data.password }, { callbackUrl: '/' })
+  await signIn({ username: event.data.email, password: event.data.password }, { callbackUrl: '/dashboard' })
 }
 
 onErrorCaptured((_) => {

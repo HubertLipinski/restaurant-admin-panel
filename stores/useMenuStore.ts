@@ -50,11 +50,6 @@ export const useMenuStore = defineStore('menu', () => {
     },
   ])
 
-  const getMenuById = (id: number): Menu => {
-    console.log(id)
-    return list.value.find((menu: Menu) => menu.id === id)
-  }
-
   async function fetchData(): void {
     loading.value = true
     const { data } = await useApiFetch<Menu[]>(apiPath, { query: { type: filterType.value } })
@@ -63,8 +58,6 @@ export const useMenuStore = defineStore('menu', () => {
   }
 
   async function createMenu(data: Menu): void {
-    console.log('create menu data: ', data)
-
     await useApiFetch<Menu[]>(apiPath, {
       method: 'POST',
       body: data,
@@ -80,8 +73,6 @@ export const useMenuStore = defineStore('menu', () => {
   }
 
   async function updateMenu(id: number, data: Menu): void {
-    console.log('update menu data: ', data)
-
     await useApiFetch<Menu[]>(`${apiPath}/${id}`, {
       method: 'PUT',
       body: data,
@@ -118,7 +109,6 @@ export const useMenuStore = defineStore('menu', () => {
     filterOptions,
     filterType,
     columns,
-    getMenuById,
     fetchData,
     createMenu,
     updateMenu,

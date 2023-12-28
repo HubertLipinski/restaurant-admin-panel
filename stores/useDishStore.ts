@@ -6,7 +6,6 @@ export const useDishStore = defineStore('dish', () => {
 
   const loading: Ref<boolean> = ref(false)
   const list: Ref<Dish[]> = ref([])
-  // const filterType: Ref<MenuFilterType> = ref('all')
 
   const columns: Ref<{ key: string; label: string }[]> = ref([
     {
@@ -62,10 +61,6 @@ export const useDishStore = defineStore('dish', () => {
       label: 'Akcja',
     },
   ])
-
-  const getDishById = (id: number): Dish => {
-    return list.value.find((dish: Dish) => dish.id === id)
-  }
 
   async function fetchData(): void {
     loading.value = true
@@ -130,17 +125,10 @@ export const useDishStore = defineStore('dish', () => {
     })
   }
 
-  // watch(filterType, async (): void => {
-  //   await fetchData()
-  // })
-
   return {
     loading,
     list,
-    // filterOptions,
-    // filterType,
     columns,
-    getDishById,
     fetchData,
     createDish,
     updateDish,

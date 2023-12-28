@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import MenuCardDetails from '~/components/auth/menu-card/MenuCardDetails.vue'
+import TableForm from '~/components/auth/table/TableForm.vue'
 
 useHead({
-  title: 'Szczegóły karty',
+  title: 'Edytuj stół',
 })
 
 definePageMeta({
   layout: 'auth',
-  name: 'Szczegóły karty',
+  name: 'Edytuj stół',
   validate: async (route) => {
     return /^\d+$/.test(route.params.id)
   },
@@ -17,14 +17,14 @@ const route = useRoute()
 const router = useRouter()
 const id = route.params.id
 
-const { data: menu } = await useApiFetch(`/api/menus/${id}`)
+const { data: table } = await useApiFetch(`/api/tables/${id}`)
 </script>
 
 <template>
   <div>
-    <PageSkeleton v-if="!menu" />
+    <PageSkeleton v-if="!table" />
     <section v-else class="mt-2.5 py-2">
-      <TheSectionHeader :title="`Szczegóły karty - ${menu.name}`">
+      <TheSectionHeader :title="`Edytuj stół - ${table.name}`">
         <template #actions>
           <UButton
             icon="i-heroicons-arrow-small-left-20-solid"
@@ -34,19 +34,10 @@ const { data: menu } = await useApiFetch(`/api/menus/${id}`)
             label="Wróć"
             @click="router.back"
             :trailing="false" />
-          <UButton
-            class="ml-2"
-            icon="i-heroicons-pencil-square-20-solid"
-            size="lg"
-            color="primary"
-            variant="solid"
-            label="Edytuj"
-            :to="`/menus/${menu.id}/edit`"
-            :trailing="false" />
         </template>
       </TheSectionHeader>
-      <MenuCardDetails :menu="menu" />
     </section>
+    <TableForm :table="table" method="edit" />
   </div>
 </template>
 

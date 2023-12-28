@@ -6,7 +6,7 @@ useHead({
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: '/',
+    navigateAuthenticatedTo: '/dashboard',
   },
   pageTransition: {
     name: 'slide-left',

@@ -1,14 +1,10 @@
 <script setup lang="ts">
-const { data, signOut } = useAuth()
-
-function logOut() {
-  signOut()
-}
+const { data: user, signOut } = useAuth()
 
 const items = [
   [
     {
-      label: data?.user?.fullName,
+      label: user.value?.name,
       slot: 'account',
       disabled: true,
     },
@@ -38,9 +34,9 @@ const items = [
     :items="items"
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-start' }">
-    <UButton :label="data?.user?.fullName ?? '-'" variant="ghost" :block="true" class="justify-evenly">
+    <UButton :label="user?.name ?? '-'" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
-        <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" size="md" />
+        <UAvatar src="https://via.placeholder.com/150" size="md" />
       </template>
     </UButton>
     <template #account="{ item }">

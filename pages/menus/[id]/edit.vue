@@ -7,7 +7,6 @@ useHead({
 
 definePageMeta({
   layout: 'auth',
-  // middleware: ['auth'], // todo uncomment this after auth is implemented
   name: 'Edytuj kartę',
   validate: async (route) => {
     return /^\d+$/.test(route.params.id)

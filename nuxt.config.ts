@@ -2,7 +2,7 @@
 
 import User from './types/user'
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NUXT_PUBLIC_APP_MODE === 'development' ? true : false },
 
   ssr: false,
 
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      titleTemplate: '%s | ' + process.env.APP_TITLE,
+      titleTemplate: '%s | ' + process.env.NUXT_PUBLIC_APP_TITLE,
       title: 'Panel' || '',
       meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
@@ -45,6 +45,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      appTitle: '',
       apiUrl: '',
       appMode: '',
       baseUrl: '',
