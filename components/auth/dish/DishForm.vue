@@ -15,20 +15,20 @@ const props = withDefaults(defineProps<DishFormProps>(), {
 const store = useDishStore()
 
 const state = ref({
-  name: '',
-  price: '',
-  kcal: '',
-  fat: '',
-  saturatedFat: '',
-  carbs: '',
-  proteins: '',
+  name: props.dish?.name ?? '',
+  price: props.dish?.price ?? '',
+  kcal: props.dish?.kcal ?? '',
+  fat: props.dish?.fat ?? '',
+  saturatedFat: props.dish?.saturatedFat ?? '',
+  carbs: props.dish?.carbs ?? '',
+  proteins: props.dish?.proteins ?? '',
+  imageUrl: props.dish?.imageUrl ?? null,
   image: null,
-  active: true,
+  active: props.dish?.active ?? true,
 })
 
 const selectedFile = ref(null)
 const imageResult = ref(null)
-const preview = ref()
 
 function fileUpload(event: Event) {
   const reader = new FileReader()
@@ -41,6 +41,8 @@ function fileUpload(event: Event) {
 
 function removeFile() {
   state.value.image = null
+  state.value.imageUrl = null
+
   selectedFile.value = null
   imageResult.value = null
 }
@@ -52,14 +54,9 @@ function openFile() {
   w.document.write(image.outerHTML)
 }
 
-// if (props.menu) {
-//   state.value.name = props.menu.name
-//   state.value.active = props.menu.active
-// }
-
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
-  props.method === 'create' ? store.createDish(event.data) : store.updateDish(props.menu.id, event.data)
+  props.method === 'create' ? store.createDish(event.data) : store.updateDish(props.dish.id, event.data)
   await navigateTo('/dishes')
 }
 </script>
@@ -98,16 +95,31 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       </UFormGroup>
     </div>
 
-    <UFormGroup label="Zdjęcie" name="image">
-      <UInput type="file" v-model="selectedFile" @change="fileUpload" />
+    <UFormGroup label="Zdjęcie" name="image" v-if="props.method === 'create'">
+      <UInput v-model="selectedFile" type="file" @change="fileUpload" />
       <div v-if="imageResult">
         <img
-          ref="preview"
           :src="imageResult"
           alt=""
           class="my-2 max-w-[250px] max-h-[250px] hover:cursor-pointer"
           @click="openFile" />
         <UButton color="rose" variant="outline" @click="removeFile">Usuń</UButton>
+      </div>
+    </UFormGroup>
+    <UFormGroup v-else label="Zdjęcie" name="image">
+      <div v-if="state.imageUrl">
+        <img :src="state.imageUrl" alt="" class="my-2 max-w-[250px] max-h-[250px] hover:cursor-pointer" />
+        <UButton color="rose" variant="outline" @click="removeFile">Usuń</UButton>
+      </div>
+      <div v-else>
+        <UInput v-model="selectedFile" type="file" @change="fileUpload" />
+        <img
+          v-if="imageResult"
+          :src="imageResult"
+          alt=""
+          class="my-2 max-w-[250px] max-h-[250px] hover:cursor-pointer"
+          @click="openFile" />
+        <UButton v-if="imageResult" color="rose" variant="outline" @click="removeFile">Usuń</UButton>
       </div>
     </UFormGroup>
 

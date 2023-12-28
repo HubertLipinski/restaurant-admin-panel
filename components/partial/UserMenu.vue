@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const { data, signOut } = useAuth()
 
+function logOut() {
+  signOut()
+}
+
 const items = [
   [
     {
@@ -18,9 +22,12 @@ const items = [
 
   [
     {
+      slot: 'logout',
       label: 'Wyloguj się',
       icon: 'i-heroicons-arrow-left-on-rectangle',
-      click: signOut,
+      click: () => {
+        signOut({ external: true, callbackUrl: '/' })
+      },
     },
   ],
 ]

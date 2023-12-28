@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import User from './types/user'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -31,12 +33,14 @@ export default defineNuxtConfig({
 
   auth: {
     baseURL: process.env.BASE_URL,
+    globalAppMiddleware: true,
     provider: {
       type: 'local',
       endpoints: {
-        // todo: add endpoints
+        getSession: { path: '/user', method: 'get' },
       },
     },
+    sessionDataType: User,
   },
 
   runtimeConfig: {

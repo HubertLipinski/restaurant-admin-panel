@@ -1,3 +1,5 @@
+import type { Dish } from '~/types/dishes'
+
 export const useDishStore = defineStore('dish', () => {
   const toast = useToast()
   const apiPath: string = '/dishes'
@@ -61,9 +63,8 @@ export const useDishStore = defineStore('dish', () => {
     },
   ])
 
-  const getDishById = (id: number): Menu => {
-    console.log(id)
-    return list.value.find((menu: Menu) => menu.id === id)
+  const getDishById = (id: number): Dish => {
+    return list.value.find((dish: Dish) => dish.id === id)
   }
 
   async function fetchData(): void {
@@ -73,12 +74,17 @@ export const useDishStore = defineStore('dish', () => {
     loading.value = false
   }
 
-  async function createDish(data: Menu): void {
-    console.log('create dish data: ', data)
+  async function createDish(data: Dish): void {
+    const raw: Dish = toRaw<Dish>(data)
+
+    const formData = new FormData()
+    for (const item in raw) {
+      formData.append(item, raw[item])
+    }
 
     await useApiFetch<Dish[]>(apiPath, {
       method: 'POST',
-      body: data,
+      body: formData,
     })
 
     toast.add({
@@ -91,11 +97,16 @@ export const useDishStore = defineStore('dish', () => {
   }
 
   async function updateDish(id: number, data: Dish): void {
-    console.log('update dish data: ', data)
+    const raw: Dish = toRaw<Dish>(data)
+
+    const formData = new FormData()
+    for (const item in raw) {
+      formData.append(item, raw[item])
+    }
 
     await useApiFetch<Dish[]>(`${apiPath}/${id}`, {
       method: 'PUT',
-      body: data,
+      body: formData,
     })
 
     toast.add({

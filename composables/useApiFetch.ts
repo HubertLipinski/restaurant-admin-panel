@@ -10,7 +10,7 @@ export function useApiFetch<T>(url: string | (() => string), options: UseFetchOp
     key: url,
 
     // set user token if connected
-    headers: token.value ? { Authorization: `Bearer ${token.value}` } : {},
+    headers: token.value ? { Authorization: `${token.value}` } : {},
 
     onResponse(_ctx) {
       // _ctx.response._data = new myBusinessResponse(_ctx.response._data)

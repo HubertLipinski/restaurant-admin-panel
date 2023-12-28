@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DishForm from '~/components/auth/dish/DishForm.vue'
+
 useHead({
   title: 'Edytuj potrawę',
 })
@@ -35,6 +37,7 @@ const { data: dish } = await useApiFetch(`/api/dishes/${id}`)
             :trailing="false" />
         </template>
       </TheSectionHeader>
+      <DishForm :dish="dish" method="edit" />
     </section>
   </div>
 </template>

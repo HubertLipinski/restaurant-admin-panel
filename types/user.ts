@@ -1,14 +1,12 @@
-export enum UserRole {
-  Admin = 'admin',
-  Waiter = 'waiter',
-  Kitchen = 'kitchen',
-  Guest = 'guest',
+export enum UserPrivilegesLevel {
+  Admin = 0,
+  Waiter = 1,
+  Kitchen = 2,
+  Guest = 3,
 }
 
 export interface User {
   id: number
   name: string
-  lastName: string
-  avatar: string | null
-  role: UserRole
+  privilegesLevel: UserPrivilegesLevel
 }

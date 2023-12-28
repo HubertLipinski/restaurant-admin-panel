@@ -8,7 +8,8 @@ export interface Dish {
   carbs: number
   proteins: number
   active: boolean
-  imageUrl: string | null | File
+  imageUrl: string | null
+  image: null | File
   created_at: string | null
   updated_at: string | null
 }

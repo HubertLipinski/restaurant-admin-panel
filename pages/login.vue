@@ -4,6 +4,10 @@ useHead({
 })
 
 definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/',
+  },
   pageTransition: {
     name: 'slide-left',
     mode: 'out-in',

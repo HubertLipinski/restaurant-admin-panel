@@ -13,7 +13,7 @@ const form = ref()
 const submitDisabled = computed(() => !LoginSchema.safeParse(state.value).success)
 
 async function submitForm(event: Event<z.output<typeof LoginSchema>>) {
-  await signIn({ email: event.data.email, password: event.data.password })
+  await signIn({ username: event.data.email, password: event.data.password }, { callbackUrl: '/' })
 }
 
 onErrorCaptured((_) => {
@@ -23,6 +23,7 @@ onErrorCaptured((_) => {
 
 <template>
   <UForm ref="form" class="space-y-4 mb-2" :schema="LoginSchema" :state="state" @submit="submitForm">
+    {{}}
     <UFormGroup label="Email" name="email" required>
       <UInput
         v-model="state.email"
