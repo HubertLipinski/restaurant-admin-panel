@@ -1,8 +1,21 @@
+# Admin Panel
+Resources:
+- [Nuxt 3](https://nuxt.com/) - Core framework
+- [Nuxt UI](https://ui.nuxt.com/) - Component library based on Tailwind CSS
+- [Pinia](https://pinia.vuejs.org/) - State management
+- [Zod](https://zod.dev/) - Validation library
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
+
+Use the project node version (**node 18**):
+```bash
+# node version manager
+nvm use
+```
 
 Make sure to install the dependencies:
 
