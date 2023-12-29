@@ -1,7 +1,7 @@
 import type { Table } from '~/types/tables'
 
 export const useTableStore = defineStore('table', () => {
-  const toast = useToast()
+  const { success } = useNotification()
   const apiPath: string = '/tables'
 
   const loading: Ref<boolean> = ref(false)
@@ -47,13 +47,7 @@ export const useTableStore = defineStore('table', () => {
       body: data,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Stół został pomyślnie utworzony',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Stół został pomyślnie utworzony')
   }
 
   async function updateTable(id: number, data: Table): void {
@@ -62,24 +56,12 @@ export const useTableStore = defineStore('table', () => {
       body: data,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Stół został pomyślnie zaktualizowany',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Stół został pomyślnie zaktualizowany')
   }
   async function deleteTable(id: number): void {
     await useApiFetch<Table[]>(`${apiPath}/${id}`, { method: 'DELETE' })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Stół został pomyślnie usunięty',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Stół został pomyślnie usunięty')
   }
 
   return {

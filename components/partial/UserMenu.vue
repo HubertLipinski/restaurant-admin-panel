@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const { data: user, signOut } = useAuth()
+const { data: user, signOut }: { data: User; unknown } = useAuth()
 
 const items = [
   [
     {
-      label: user.value?.name,
+      label: user.value?.email,
       slot: 'account',
       disabled: true,
     },
@@ -34,7 +34,7 @@ const items = [
     :items="items"
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-start' }">
-    <UButton :label="user?.name ?? '-'" variant="ghost" :block="true" class="justify-evenly">
+    <UButton :label="user?.email ?? '-'" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
         <UAvatar src="https://via.placeholder.com/150" size="md" />
       </template>
@@ -45,7 +45,10 @@ const items = [
         <p class="truncate font-medium text-gray-900 dark:text-white">
           {{ item.label }}
         </p>
-        <p class="truncate text-gray-800 dark:text-white">Rola użytkownika</p>
+        <p class="truncate text-gray-800 dark:text-white mt-2">Rola użytkownika</p>
+        <span class="truncate font-medium text-gray-900 dark:text-white">
+          {{ user?.privilegesLevel ?? 'Brak roli' }}
+        </span>
       </div>
     </template>
     <template #item="{ item }">

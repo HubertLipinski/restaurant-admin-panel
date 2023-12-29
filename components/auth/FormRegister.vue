@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { RegisterSchema } from '~/schema/auth/RegisterSchema'
 
 const { signUp } = useAuth()
+const { success } = useNotification()
 
 const state = ref({
   email: '',
@@ -15,20 +16,16 @@ const state = ref({
 })
 
 const registerError = ref(false)
-
+const loading = ref(false)
 const submitDisabled = computed(() => !RegisterSchema.safeParse(state.value).success)
 
 async function onSubmit(event: Event<z.output<typeof RegisterSchema>>) {
+  loading.value = true
   try {
-    // TODO
-    await signUp({
-      name: 'Jan Nowak',
-      email: event.data.email,
-      phone: '4777273330',
-      password: event.data.password,
-      password_confirmation: event.data.passwordConfirm,
-    })
+    await signUp({ email: event.data.email, password: event.data.password }, { callbackUrl: '/dashboard' })
+    success('Zostałeś pomyślnie zarejestrowany.')
   } catch (error) {
+    loading.value = false
     registerError.value = true
   }
 }
@@ -100,10 +97,16 @@ onErrorCaptured((_) => {
     </UFormGroup>
 
     <div class="flex justify-between pt-6">
-      <UButton type="submit" class="space-y-4" size="lg" variant="solid" :loading="false" :disabled="submitDisabled">
+      <UButton type="submit" class="space-y-4" size="lg" variant="solid" :loading="loading" :disabled="submitDisabled">
         Zarejestruj
       </UButton>
-      <UButton label="Zaloguj się" color="gray" variant="link" class="p-0" to="/login">
+      <UButton
+        label="Zaloguj się"
+        color="gray"
+        variant="link"
+        class="p-0"
+        :to="loading !== true ? '/login' : null"
+        :disabled="loading">
         <template #leading>
           <UIcon name="i-heroicons-arrow-left-20-solid" />
         </template>

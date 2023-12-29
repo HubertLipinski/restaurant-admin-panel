@@ -1,7 +1,7 @@
 import type { Menu, MenuFilterType, MenuType } from '~/types/menus'
 
 export const useMenuStore = defineStore('menu', () => {
-  const toast = useToast()
+  const { success } = useNotification()
   const apiPath: string = '/menus'
 
   const loading: Ref<boolean> = ref(false)
@@ -63,13 +63,7 @@ export const useMenuStore = defineStore('menu', () => {
       body: data,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Karta menu została pomyślnie utworzona',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Karta menu została pomyślnie utworzona')
   }
 
   async function updateMenu(id: number, data: Menu): void {
@@ -78,25 +72,13 @@ export const useMenuStore = defineStore('menu', () => {
       body: data,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Karta menu została pomyślnie zaktualizowana',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Karta menu została pomyślnie zaktualizowana')
   }
 
   async function deleteMenu(id: number): void {
     await useApiFetch<Menu[]>(`${apiPath}/${id}`, { method: 'DELETE' })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Karta menu została pomyślnie usunięta',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Karta menu została pomyślnie usunięta')
   }
 
   watch(filterType, async (): void => {

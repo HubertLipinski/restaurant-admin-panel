@@ -31,16 +31,29 @@ export default defineNuxtConfig({
     },
   },
 
+  // Configuration for auth provider
   auth: {
-    baseURL: process.env.BASE_URL,
     globalAppMiddleware: true,
+    baseURL: process.env.NUXT_PUBLIC_API_URL,
     provider: {
       type: 'local',
       endpoints: {
-        getSession: { path: '/user', method: 'get' },
+        signIn: { path: '/login', method: 'post' },
+        signUp: { path: '/register', method: 'post' },
+        getSession: { path: '/manage/info', method: 'get' },
       },
+      pages: {
+        login: '/login',
+      },
+      token: {
+        signInResponseTokenPointer: '/accessToken',
+      },
+      sessionDataType: {},
     },
-    sessionDataType: User,
+    globalMiddlewareOptions: {
+      allow404WithoutAuth: true,
+      addDefaultCallbackUrl: '/dashboard',
+    },
   },
 
   runtimeConfig: {

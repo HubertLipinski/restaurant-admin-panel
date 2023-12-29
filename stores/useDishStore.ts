@@ -1,7 +1,7 @@
 import type { Dish } from '~/types/dishes'
 
 export const useDishStore = defineStore('dish', () => {
-  const toast = useToast()
+  const { success } = useNotification()
   const apiPath: string = '/dishes'
 
   const loading: Ref<boolean> = ref(false)
@@ -82,13 +82,7 @@ export const useDishStore = defineStore('dish', () => {
       body: formData,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Potrawa została pomyślnie utworzona',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Potrawa została pomyślnie utworzona')
   }
 
   async function updateDish(id: number, data: Dish): void {
@@ -104,25 +98,13 @@ export const useDishStore = defineStore('dish', () => {
       body: formData,
     })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Potrawa została pomyślnie zaktualizowana',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Potrawa została pomyślnie zaktualizowana')
   }
 
   async function deleteDish(id: number): void {
     await useApiFetch<Dish[]>(`${apiPath}/${id}`, { method: 'DELETE' })
 
-    toast.add({
-      title: 'Sukces!',
-      color: 'green',
-      description: 'Potrawa została pomyślnie usunięta',
-      icon: 'i-heroicons-check-circle',
-      timeout: 5 * 1000,
-    })
+    success('Potrawa została pomyślnie usunięta')
   }
 
   return {
