@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const { data: user, signOut }: { data: User; unknown } = useAuth()
+const { data: user }: { data: User; unknown } = useAuth()
+const { clearToken } = useAuthState()
+
+async function signOut() {
+  await useFetch('/logout', { method: 'POST', body: {} })
+  await clearToken()
+  window.location.reload()
+}
 
 const items = [
   [
@@ -22,7 +29,7 @@ const items = [
       label: 'Wyloguj się',
       icon: 'i-heroicons-arrow-left-on-rectangle',
       click: () => {
-        signOut({ external: true, callbackUrl: '/' })
+        signOut()
       },
     },
   ],

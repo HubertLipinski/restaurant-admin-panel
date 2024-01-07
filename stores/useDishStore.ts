@@ -49,11 +49,11 @@ export const useDishStore = defineStore('dish', () => {
       label: 'Status',
     },
     {
-      key: 'created_at',
+      key: 'createdAt',
       label: 'Data utworzenia',
     },
     {
-      key: 'updated_at',
+      key: 'updatedAt',
       label: 'Data edycji',
     },
     {

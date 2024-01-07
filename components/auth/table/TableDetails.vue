@@ -13,13 +13,13 @@ const props = defineProps<TableDetailsProps>()
         <h2 class="text-[1em] font-bold">Nazwa:</h2>
         <p>{{ props.table.name }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.created_at">
+      <div class="flex items-center gap-2" v-if="props.table.createdAt">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
-        <p>{{ props.table.created_at }}</p>
+        <p>{{ props.table.createdAt }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.updated_at">
+      <div class="flex items-center gap-2" v-if="props.table.updatedAt">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
-        <p>{{ props.table.updated_at }}</p>
+        <p>{{ props.table.updatedAt }}</p>
       </div>
     </div>
     <div class="w-full md:w-1/2 flex justify-start md:justify-end">

@@ -10,6 +10,6 @@ export interface Dish {
   active: boolean
   imageUrl: string | null
   image: null | File
-  created_at: string | null
-  updated_at: string | null
+  createdAt: string | null
+  updatedAt: string | null
 }

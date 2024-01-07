@@ -37,11 +37,11 @@ export const useMenuStore = defineStore('menu', () => {
       label: 'Status',
     },
     {
-      key: 'created_at',
+      key: 'createdAt',
       label: 'Data utworzenia',
     },
     {
-      key: 'updated_at',
+      key: 'updatedAt',
       label: 'Data edycji',
     },
     {
@@ -52,7 +52,7 @@ export const useMenuStore = defineStore('menu', () => {
 
   async function fetchData(): void {
     loading.value = true
-    const { data } = await useApiFetch<Menu[]>(apiPath, { query: { type: filterType.value } })
+    const { data } = await useApiFetch<Menu[]>(`${apiPath}/all/${filterType.value}`)
     list.value = data.value
     loading.value = false
   }

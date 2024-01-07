@@ -12,8 +12,8 @@ const mockDishes: Dish[] = [
     proteins: 234,
     active: true,
     imageUrl: 'https://via.placeholder.com/150',
-    created_at: '2020-01-01',
-    updated_at: '2020-01-01',
+    createdAt: '2020-01-01',
+    updatedAt: '2020-01-01',
   },
   {
     id: 2,
@@ -26,8 +26,8 @@ const mockDishes: Dish[] = [
     proteins: 343,
     active: true,
     imageUrl: 'https://via.placeholder.com/150',
-    created_at: '2022-01-01',
-    updated_at: '2022-01-01',
+    createdAt: '2022-01-01',
+    updatedAt: '2022-01-01',
   },
   {
     id: 4,
@@ -40,8 +40,8 @@ const mockDishes: Dish[] = [
     proteins: 323,
     active: false,
     imageUrl: 'https://via.placeholder.com/150',
-    created_at: '2022-01-01',
-    updated_at: '2022-01-01',
+    createdAt: '2022-01-01',
+    updatedAt: '2022-01-01',
   },
 ]
 

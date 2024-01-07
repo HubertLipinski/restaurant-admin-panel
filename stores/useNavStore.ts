@@ -30,12 +30,12 @@ export const useNavStore = defineStore('nav', () => {
     [UserPrivilegesLevel['Admin']]: navigation,
     [UserPrivilegesLevel['Waiter']]: navigation,
     [UserPrivilegesLevel['Kitchen']]: navigation,
-    [UserPrivilegesLevel['Guest']]: [],
+    [UserPrivilegesLevel['Guest']]: navigation,
   }
 
   const roleBasedNavigation: ComputedGetter<VerticalNavigationLink[] | null> = computed(
     (): VerticalNavigationLink[] | null => {
-      const role: UserPrivilegesLevel = user.value?.privilegesLevel
+      const role: UserPrivilegesLevel = user.value?.privilegesLevel ?? 3
       const nav = roleNavigation[role] ?? null
 
       if (!nav) {

@@ -21,11 +21,11 @@ export const useTableStore = defineStore('table', () => {
       label: 'Kod QR',
     },
     {
-      key: 'created_at',
+      key: 'createdAt',
       label: 'Data utworzenia',
     },
     {
-      key: 'updated_at',
+      key: 'updatedAt',
       label: 'Data edycji',
     },
     {

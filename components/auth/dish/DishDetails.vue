@@ -53,13 +53,13 @@ const props = defineProps<DishDetailsProps>()
             variant="outline" />
         </p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.dish.created_at">
+      <div class="flex items-center gap-2" v-if="props.dish.createdAt">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
-        <p>{{ props.dish.created_at }}</p>
+        <p>{{ props.dish.createdAt }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.dish.updated_at">
+      <div class="flex items-center gap-2" v-if="props.dish.updatedAt">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
-        <p>{{ props.dish.updated_at }}</p>
+        <p>{{ props.dish.updatedAt }}</p>
       </div>
     </div>
 

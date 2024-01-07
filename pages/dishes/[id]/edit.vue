@@ -17,7 +17,7 @@ const route = useRoute()
 const router = useRouter()
 const id = route.params.id
 
-const { data: dish } = await useApiFetch(`/api/dishes/${id}`)
+const { data: dish } = await useApiFetch(`/dishes/${id}`)
 </script>
 
 <template>

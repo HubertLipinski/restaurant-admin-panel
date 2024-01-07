@@ -17,7 +17,7 @@ const route = useRoute()
 const router = useRouter()
 const id = route.params.id
 
-const { data: table } = await useApiFetch(`/api/tables/${id}`)
+const { data: table } = await useApiFetch(`/tables/${id}`)
 </script>
 
 <template>
