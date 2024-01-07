@@ -13,17 +13,40 @@ const props = withDefaults(defineProps<MenuCardFormProps>(), {
 })
 
 const store = useMenuStore()
+const dishStore = useDishStore()
 
 const state = ref({
   name: '',
   active: true,
-  // dishes: [],
+  dishesId: [],
 })
 
 if (props.menu) {
   state.value.name = props.menu.name
   state.value.active = props.menu.active
+  state.value.dishesId = props.menu.dishes.map((dish) => dish.id)
 }
+
+const { list: dishList } = storeToRefs(dishStore)
+
+onMounted(async () => {
+  if (dishList.value.length === 0) {
+    await dishStore.fetchData()
+  }
+})
+
+const availableDishes = computed(() => {
+  return dishList.value.map((dish) => {
+    return {
+      name: dish.name,
+      value: dish.id,
+    }
+  })
+})
+
+const selectedNames = computed(() => {
+  return dishList.value.filter((dish) => state.value.dishesId.includes(dish.id)).map((dish) => dish.name)
+})
 
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
@@ -45,7 +68,24 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       <hr class="my-4" />
     </div>
 
-    <p>todo: select dishes</p>
+    <UFormGroup label="Wybierz potrawy" name="dishesId">
+      <USelectMenu
+        v-model="state.dishesId"
+        :options="availableDishes"
+        value-attribute="value"
+        option-attribute="name"
+        multiple
+        searchable
+        searchable-placeholder="Wyszukaj potrawę...">
+        <template #label>
+          <span v-if="selectedNames.length" class="truncate">{{ selectedNames.join(', ') }}</span>
+          <span v-else>-</span>
+        </template>
+        <template #option-empty="{ query }">
+          Nie znaleziono szukanej frazy <q>{{ query }}</q>
+        </template>
+      </USelectMenu>
+    </UFormGroup>
 
     <UButton type="submit" size="lg" class="float-right" variant="solid" :loading="false" :disabled="submitDisabled">
       {{ props.method === 'create' ? 'Zapisz' : 'Aktualizuj' }}

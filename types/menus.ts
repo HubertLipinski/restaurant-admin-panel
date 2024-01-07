@@ -1,7 +1,10 @@
+import type { Dish } from '~/types/dishes'
+
 export interface Menu {
   id: number
   name: string
   active: boolean
+  dishes?: Dish[]
   createdAt: string | null
   updatedAt: string | null
 }

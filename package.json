@@ -27,6 +27,7 @@
     "@nuxt/ui": "^2.11.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@sidebase/nuxt-auth": "^0.6.3-alpha.1",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.16",

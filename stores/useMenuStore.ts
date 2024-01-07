@@ -52,7 +52,7 @@ export const useMenuStore = defineStore('menu', () => {
 
   async function fetchData(): void {
     loading.value = true
-    const { data } = await useApiFetch<Menu[]>(`${apiPath}/all/${filterType.value}`)
+    const { data } = await useApiFetch<Menu[]>(`${apiPath}/all`, { query: { type: filterType.value } })
     list.value = data.value
     loading.value = false
   }

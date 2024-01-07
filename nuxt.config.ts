@@ -6,7 +6,14 @@ export default defineNuxtConfig({
 
   ssr: false,
 
-  modules: ['@nuxt/ui', '@vueuse/nuxt', '@formkit/auto-animate/nuxt', '@sidebase/nuxt-auth', '@pinia/nuxt'],
+  modules: [
+    '@nuxt/ui',
+    '@vueuse/nuxt',
+    '@formkit/auto-animate/nuxt',
+    '@sidebase/nuxt-auth',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+  ],
 
   css: ['~/assets/css/main.css'],
 
@@ -68,5 +75,12 @@ export default defineNuxtConfig({
 
   colorMode: {
     preference: 'light',
+  },
+
+  piniaPersistedstate: {
+    cookieOptions: {
+      sameSite: 'strict',
+    },
+    storage: 'localStorage',
   },
 })
