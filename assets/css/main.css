@@ -7,11 +7,10 @@ body {
 }
 
 .container-content {
-  /*max-height: calc(100vh - 72px);*/
   max-height: calc(100vh);
 }
 
-/*route animations*/
+/* route animations */
 
 .slide-left-enter-active,
 .slide-left-leave-active,
@@ -34,4 +33,16 @@ body {
 .slide-right-leave-to {
   opacity: 0;
   transform: translate(50px, 0);
+}
+
+/* page animations */
+
+.page-enter-active,
+.page-leave-active {
+    transition: all 0.25s;
+}
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+    filter: blur(2px);
 }

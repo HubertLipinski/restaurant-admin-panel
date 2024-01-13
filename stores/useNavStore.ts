@@ -10,18 +10,22 @@ export const useNavStore = defineStore('nav', () => {
     {
       label: 'Dashboard',
       to: '/dashboard',
+      icon: 'heroicons-outline:document-report',
     },
     {
       label: 'Stoły',
       to: '/tables',
+      icon: 'i-ic-round-table-restaurant',
     },
     {
       label: 'Potrawy',
       to: '/dishes',
+      icon: 'i-healthicons-hot-meal',
     },
     {
       label: 'Karty menu',
       to: '/menus',
+      icon: 'i-bx-food-menu',
     },
   ]
 

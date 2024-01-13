@@ -40,7 +40,8 @@ const items = [
   <UDropdown
     :items="items"
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
-    :popper="{ placement: 'bottom-start' }">
+    :popper="{ placement: 'bottom-start' }"
+    class="md:w-full">
     <UButton :label="user?.email ?? '-'" variant="ghost" :block="true" class="justify-evenly">
       <template #leading>
         <UAvatar src="https://via.placeholder.com/150" size="md" />

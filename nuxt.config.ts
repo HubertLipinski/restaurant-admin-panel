@@ -30,6 +30,7 @@ export default defineNuxtConfig({
       title: 'Panel' || '',
       meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
+    pageTransition: { name: 'page', mode: 'out-in' },
   },
 
   nitro: {
