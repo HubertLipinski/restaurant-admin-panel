@@ -2,7 +2,7 @@
 
 import User from './types/user'
 export default defineNuxtConfig({
-  devtools: { enabled: process.env.NUXT_PUBLIC_APP_MODE === 'development' ? true : false },
+  devtools: { enabled: process.env.NUXT_PUBLIC_APP_MODE === 'development' },
 
   ssr: false,
 
@@ -33,12 +33,6 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
   },
 
-  nitro: {
-    devProxy: {
-      host: 'localhost',
-    },
-  },
-
   // Configuration for auth provider
   auth: {
     globalAppMiddleware: true,
@@ -48,14 +42,11 @@ export default defineNuxtConfig({
       endpoints: {
         signIn: { path: '/login', method: 'post' },
         signUp: { path: '/register', method: 'post' },
-        signOut: { path: '/logout', method: 'post' },
-        getSession: { path: '/users/info', method: 'get' },
+        signOut: { path: '/logout', method: 'get' },
+        getSession: { path: '/user', method: 'get' },
       },
       pages: {
         login: '/login',
-      },
-      token: {
-        signInResponseTokenPointer: '/accessToken',
       },
       sessionDataType: {},
     },
@@ -83,5 +74,15 @@ export default defineNuxtConfig({
       sameSite: 'strict',
     },
     storage: 'localStorage',
+  },
+
+  nitro: {
+    devProxy: {
+      host: 'localhost',
+    },
+  },
+
+  devServer: {
+    port: 4909,
   },
 })
