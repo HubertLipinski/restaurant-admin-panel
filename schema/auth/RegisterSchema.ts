@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const RegisterSchema = z
   .object({
+    name: z.string({ required_error: 'Pole jest wymagane' }).min(1, { message: 'Pole jest wymagane' }).trim(),
     email: z
       .string({ required_error: 'Pole Email jest wymagane' })
       .email({ message: 'Podany email jest niepoprawny' })
@@ -10,7 +11,7 @@ export const RegisterSchema = z
       .string({ required_error: 'Pole Hasło jest wymagane' })
       .min(8, { message: 'Hasło powinno mieć przynajmniej 8 znaków' })
       .trim(),
-    passwordConfirm: z
+    password_confirmation: z
       .string({ required_error: 'Pole jest wymagane' })
       .min(8, { message: 'Hasło powinno mieć przynajmniej 8 znaków' })
       .trim(),
@@ -22,7 +23,7 @@ export const RegisterSchema = z
       })
     ),
   })
-  .refine((data) => data.password === data.passwordConfirm, {
+  .refine((data) => data.password === data.password_confirmation, {
     message: 'Podane hasła są różne',
-    path: ['passwordConfirm'],
+    path: ['password_confirmation'],
   })

@@ -6,9 +6,10 @@ const { signUp } = useAuth()
 const { success } = useNotification()
 
 const state = ref({
+  name: '',
   email: '',
   password: '',
-  passwordConfirm: '',
+  password_confirmation: '',
   birthdayDate: '',
   agreements: {
     terms: false,
@@ -22,7 +23,7 @@ const submitDisabled = computed(() => !RegisterSchema.safeParse(state.value).suc
 async function onSubmit(event: Event<z.output<typeof RegisterSchema>>) {
   loading.value = true
   try {
-    await signUp({ email: event.data.email, password: event.data.password }, { callbackUrl: '/dashboard' })
+    await signUp(event.data, { callbackUrl: '/dashboard' })
     success('Zostałeś pomyślnie zarejestrowany.')
   } catch (error) {
     loading.value = false
@@ -43,6 +44,14 @@ onErrorCaptured((_) => {
       color="red"
       variant="solid"
       description="Wystąpił błąd podczas rejestracji. Spróbuj ponownie później." />
+    <UFormGroup label="Imię i nazwisko" name="name">
+      <UInput
+        v-model="state.name"
+        size="lg"
+        autocomplete="name"
+        icon="i-heroicons-user-circle"
+        placeholder="Podaj imię i nazwisko" />
+    </UFormGroup>
     <UFormGroup label="Email" name="email">
       <UInput
         v-model="state.email"
@@ -62,7 +71,7 @@ onErrorCaptured((_) => {
     </UFormGroup>
     <UFormGroup label="Potwierdź hasło" name="passwordConfirm">
       <UInput
-        v-model="state.passwordConfirm"
+        v-model="state.password_confirmation"
         type="password"
         size="lg"
         placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
