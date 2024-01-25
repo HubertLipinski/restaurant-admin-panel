@@ -17,7 +17,8 @@ const route = useRoute()
 const router = useRouter()
 const id = route.params.id
 
-const { data: table } = await useApiFetch(`/tables/${id}`)
+const { data: response } = await useApiFetch(`/tables/${id}`)
+const table = computed(() => response.value?.data)
 </script>
 
 <template>
@@ -32,8 +33,8 @@ const { data: table } = await useApiFetch(`/tables/${id}`)
             color="gray"
             variant="soft"
             label="Wróć"
-            @click="router.back"
-            :trailing="false" />
+            :trailing="false"
+            @click="router.back" />
           <UButton
             class="ml-2"
             icon="i-heroicons-pencil-square-20-solid"

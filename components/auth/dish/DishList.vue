@@ -52,8 +52,8 @@ const rowActions = (row: Dish) => [
       :columns="columns"
       :rows="list"
       :loading="pending">
-      <template #imageUrl-data="{ row }">
-        <img v-if="row.imageUrl" :src="row.imageUrl" :alt="row.name" class="max-h-[200px] max-w-[200px] w-100" />
+      <template #image_url-data="{ row }">
+        <img v-if="row.image_url" :src="row.image_url" :alt="row.name" class="max-h-[200px] max-w-[200px] w-100" />
         <span v-else>Brak</span>
       </template>
       <template #active-data="{ row }">

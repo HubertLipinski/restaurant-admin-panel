@@ -1,7 +1,8 @@
 export interface Table {
   id: number
   name: string
-  qrCodeUrl: string | null
-  createdAt: string | null
-  updatedAt: string | null
+  seats: number
+  qr_code_url: string | null
+  created_at: string | null
+  updated_at: string | null
 }

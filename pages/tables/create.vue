@@ -14,8 +14,8 @@ definePageMeta({
 <template>
   <section class="mt-2.5 py-2">
     <TheSectionHeader title="Utwórz stół" subtitle="Wypełnij poniższy formularz, aby utworzyć nowy stół" />
+    <TableForm />
   </section>
-  <TableForm />
 </template>
 
 <style scoped></style>

@@ -13,18 +13,22 @@ const props = defineProps<TableDetailsProps>()
         <h2 class="text-[1em] font-bold">Nazwa:</h2>
         <p>{{ props.table.name }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.createdAt">
-        <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
-        <p>{{ props.table.createdAt }}</p>
+      <div class="flex items-center gap-2">
+        <h2 class="text-[1em] font-bold">Liczba miejsc:</h2>
+        <p>{{ props.table.seats }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.updatedAt">
+      <div class="flex items-center gap-2" v-if="props.table.created_at">
+        <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
+        <p>{{ props.table.created_at }}</p>
+      </div>
+      <div class="flex items-center gap-2" v-if="props.table.updated_at">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
-        <p>{{ props.table.updatedAt }}</p>
+        <p>{{ props.table.updated_at }}</p>
       </div>
     </div>
     <div class="w-full md:w-1/2 flex justify-start md:justify-end">
-      <a v-if="props.table.qrCodeUrl" :href="props.table.qrCodeUrl" target="_blank" class="text-center block w-[150px]">
-        <img :src="props.table.qrCodeUrl" alt="kod qr" class="max-w-[150px] max-h-[150px] border m-auto" />
+      <a v-if="props.table.qr_code_url" :href="props.table.qr_code_url" target="_blank" class="text-center block w-[150px]">
+        <img :src="props.table.qr_code_url" alt="kod qr" class="max-w-[150px] max-h-[150px] border m-auto" />
       </a>
     </div>
   </div>

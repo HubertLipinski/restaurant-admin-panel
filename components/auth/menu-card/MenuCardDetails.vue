@@ -22,13 +22,13 @@ const props = defineProps<MenuDetailsProps>()
             variant="outline" />
         </p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.menu.createdAt">
+      <div class="flex items-center gap-2" v-if="props.menu.created_at">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
-        <p>{{ props.menu.createdAt }}</p>
+        <p>{{ props.menu.created_at }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.menu.updatedAt">
+      <div class="flex items-center gap-2" v-if="props.menu.updated_at">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
-        <p>{{ props.menu.updatedAt }}</p>
+        <p>{{ props.menu.updated_at }}</p>
       </div>
     </div>
 

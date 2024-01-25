@@ -37,11 +37,11 @@ export const useMenuStore = defineStore('menu', () => {
       label: 'Status',
     },
     {
-      key: 'createdAt',
+      key: 'created_at',
       label: 'Data utworzenia',
     },
     {
-      key: 'updatedAt',
+      key: 'updated_at',
       label: 'Data edycji',
     },
     {

@@ -19,10 +19,10 @@ const state = ref({
   price: props.dish?.price ?? '',
   kcal: props.dish?.kcal ?? '',
   fat: props.dish?.fat ?? '',
-  saturatedFat: props.dish?.saturatedFat ?? '',
+  saturated_fat: props.dish?.saturated_fat ?? '',
   carbs: props.dish?.carbs ?? '',
   proteins: props.dish?.proteins ?? '',
-  imageUrl: props.dish?.imageUrl ?? null,
+  image_url: props.dish?.image_url ?? null,
   image: null,
   active: props.dish?.active ?? true,
 })
@@ -41,7 +41,7 @@ function fileUpload(event: Event) {
 
 function removeFile() {
   state.value.image = null
-  state.value.imageUrl = null
+  state.value.image_url = null
 
   selectedFile.value = null
   imageResult.value = null
@@ -82,8 +82,8 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       <UFormGroup label="Tłuszcze" name="fat" class="sm:w-1/2 md:w-1/4">
         <UInput v-model="state.fat" size="lg" v-maska data-maska="#" data-maska-tokens="#:\d:multiple" />
       </UFormGroup>
-      <UFormGroup label="Tłuszcze nasycone" name="saturatedFat" class="sm:w-1/2 md:w-1/4">
-        <UInput v-model="state.saturatedFat" size="lg" v-maska data-maska="#" data-maska-tokens="#:\d:multiple" />
+      <UFormGroup label="Tłuszcze nasycone" name="saturated_fat" class="sm:w-1/2 md:w-1/4">
+        <UInput v-model="state.saturated_fat" size="lg" v-maska data-maska="#" data-maska-tokens="#:\d:multiple" />
       </UFormGroup>
       <UFormGroup label="Węglowodany" name="carbs" class="sm:w-1/2 md:w-1/4">
         <UInput v-model="state.carbs" size="lg" v-maska data-maska="#" data-maska-tokens="#:\d:multiple" />
@@ -107,8 +107,8 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       </div>
     </UFormGroup>
     <UFormGroup v-else label="Zdjęcie" name="image">
-      <div v-if="state.imageUrl">
-        <img :src="state.imageUrl" alt="" class="my-2 max-w-[250px] max-h-[250px] hover:cursor-pointer" />
+      <div v-if="state.image_url">
+        <img :src="state.image_url" alt="" class="my-2 max-w-[250px] max-h-[250px] hover:cursor-pointer" />
         <UButton color="rose" variant="outline" @click="removeFile">Usuń</UButton>
       </div>
       <div v-else>

@@ -8,6 +8,7 @@ body {
 
 .container-content {
   max-height: calc(100vh);
+  padding-bottom: 2rem;
 }
 
 /* route animations */

@@ -16,6 +16,7 @@ const store = useTableStore()
 
 const state = ref({
   name: '',
+  seats: 1,
 })
 
 if (props.table) {
@@ -33,6 +34,9 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
   <UForm :schema="FormSchema" :state="state" class="space-y-4" @submit="submitForm">
     <UFormGroup label="Nazwa" name="name">
       <UInput v-model="state.name" size="lg" placeholder="Stolik 4-osobowy" />
+    </UFormGroup>
+    <UFormGroup label="Liczba miejsc" name="seats">
+      <UInput v-model.number="state.seats" size="lg" type="number" min="1" />
     </UFormGroup>
 
     <UButton

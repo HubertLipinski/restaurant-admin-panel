@@ -8,5 +8,6 @@ export const enum UserPrivilegesLevel {
 export interface User {
   id: number
   name: string
+  email: string,
   privilegesLevel: UserPrivilegesLevel
 }

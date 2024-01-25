@@ -9,7 +9,7 @@ export const useDishStore = defineStore('dish', () => {
 
   const columns: Ref<{ key: string; label: string }[]> = ref([
     {
-      key: 'imageUrl',
+      key: 'image_url',
       label: 'Zdjęcie',
     },
     {
@@ -33,7 +33,7 @@ export const useDishStore = defineStore('dish', () => {
       label: 'Tłuszcz',
     },
     {
-      key: 'saturatedFat',
+      key: 'saturated_fat',
       label: 'Tłuszcz nasycony',
     },
     {
@@ -49,11 +49,11 @@ export const useDishStore = defineStore('dish', () => {
       label: 'Status',
     },
     {
-      key: 'createdAt',
+      key: 'created_at',
       label: 'Data utworzenia',
     },
     {
-      key: 'updatedAt',
+      key: 'updated_at',
       label: 'Data edycji',
     },
     {

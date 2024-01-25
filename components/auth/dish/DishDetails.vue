@@ -8,7 +8,7 @@ const props = defineProps<DishDetailsProps>()
 <template>
   <div>
     <div class="my-4">
-      <img v-if="props.dish.imageUrl" :src="props.dish.imageUrl" :alt="props.dish.name" />
+      <img v-if="props.dish.image_url" :src="props.dish.image_url" :alt="props.dish.name" />
       <span v-else class="font-bold">Brak zdjęcia</span>
     </div>
     <div class="flex flex-col gap-y-2 mb-6">
@@ -32,7 +32,7 @@ const props = defineProps<DishDetailsProps>()
         </div>
         <div class="flex items-center gap-2">
           <h3 class="text-[1em] font-bold">Tłuszcze nasycone:</h3>
-          <p>{{ props.dish.saturatedFat }}</p>
+          <p>{{ props.dish.saturated_fat }}</p>
         </div>
         <div class="flex items-center gap-2">
           <h3 class="text-[1em] font-bold">Węglowodany:</h3>
@@ -53,13 +53,13 @@ const props = defineProps<DishDetailsProps>()
             variant="outline" />
         </p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.dish.createdAt">
+      <div class="flex items-center gap-2" v-if="props.dish.created_at">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
-        <p>{{ props.dish.createdAt }}</p>
+        <p>{{ props.dish.created_at }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.dish.updatedAt">
+      <div class="flex items-center gap-2" v-if="props.dish.updated_at">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
-        <p>{{ props.dish.updatedAt }}</p>
+        <p>{{ props.dish.updated_at }}</p>
       </div>
     </div>
 

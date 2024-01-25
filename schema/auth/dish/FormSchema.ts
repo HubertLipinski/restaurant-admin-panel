@@ -18,14 +18,14 @@ export const FormSchema = z
     ),
     kcal: z.string({ required_error: 'Pole jest wymagane' }).min(1, { message: 'Pole powinno zawierać min. 1 znak' }),
     fat: z.string({ required_error: 'Pole jest wymagane' }).min(1, { message: 'Pole powinno zawierać min. 1 znak' }),
-    saturatedFat: z
+    saturated_fat: z
       .string({ required_error: 'Pole jest wymagane' })
       .min(1, { message: 'Pole powinno zawierać min. 1 znak' }),
     carbs: z.string({ required_error: 'Pole jest wymagane' }).min(1, { message: 'Pole powinno zawierać min. 1 znak' }),
     proteins: z
       .string({ required_error: 'Pole jest wymagane' })
       .min(1, { message: 'Pole powinno zawierać min. 1 znak' }),
-    imageUrl: z.string().optional().nullable(),
+    image_url: z.string().optional().nullable(),
     image: z
       .any()
       .refine((files) => files?.size > 0, 'Zdjęcie jest wymagane')
@@ -38,5 +38,5 @@ export const FormSchema = z
     active: z.boolean(),
   })
   .refine((input) => {
-    return input.imageUrl || input.image
+    return input.image_url || input.image
   })
