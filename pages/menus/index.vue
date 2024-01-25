@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import MenuCardList from '~/components/auth/menu-card/MenuCardList.vue'
+
 useHead({
   title: 'Karty menu',
 })
@@ -17,7 +18,7 @@ definePageMeta({
         <UButton label="Dodaj" size="md" icon="i-heroicons-document-plus" to="/menus/create" />
       </template>
     </TheSectionHeader>
-    <menu-card-list />
+    <MenuCardList />
   </section>
 </template>
 

@@ -84,7 +84,7 @@ const resetFilters = () => {
   search.value = ''
 }
 
-const sort = ref({ column: 'created_at', direction: 'desc' as const })
+const sort = ref({ column: 'id', direction: 'desc' as const })
 const page = ref(1)
 const pageCount = ref(5)
 const pageTotal = ref(null)

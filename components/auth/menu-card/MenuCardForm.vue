@@ -24,7 +24,8 @@ const state = ref({
 if (props.menu) {
   state.value.name = props.menu.name
   state.value.active = props.menu.active
-  state.value.dishesId = props.menu.dishes.map((dish) => dish.id)
+  // state.value.dishesId = props.menu.dishes.map((dish) => dish.id)
+  state.value.dishesId = []
 }
 
 const { list: dishList } = storeToRefs(dishStore)
@@ -36,6 +37,7 @@ onMounted(async () => {
 })
 
 const availableDishes = computed(() => {
+  return []
   return dishList.value.map((dish) => {
     return {
       name: dish.name,
@@ -45,7 +47,8 @@ const availableDishes = computed(() => {
 })
 
 const selectedNames = computed(() => {
-  return dishList.value.filter((dish) => state.value.dishesId.includes(dish.id)).map((dish) => dish.name)
+  return []
+  // return dishList.value.filter((dish) => state.value.dishesId.includes(dish.id)).map((dish) => dish.name)
 })
 
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)

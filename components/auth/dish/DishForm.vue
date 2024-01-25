@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { z } from 'zod'
 import { FormSchema } from '~/schema/auth/dish/FormSchema'
+import type { Dish } from '~/types/dishes'
+const { success } = useNotification()
 
 interface DishFormProps {
   method?: 'create' | 'edit'
@@ -15,6 +17,7 @@ const props = withDefaults(defineProps<DishFormProps>(), {
 const store = useDishStore()
 
 const state = ref({
+  id: props.dish?.id ?? null,
   name: props.dish?.name ?? '',
   price: props.dish?.price ?? '',
   kcal: props.dish?.kcal ?? '',
@@ -54,15 +57,16 @@ function openFile() {
   w.document.write(image.outerHTML)
 }
 
+const form = ref(null)
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
+
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
-  props.method === 'create' ? store.createDish(event.data) : store.updateDish(props.dish.id, event.data)
-  await navigateTo('/dishes')
+  await store.handleForm(event.data, props.method, form)
 }
 </script>
 
 <template>
-  <UForm :schema="FormSchema" :state="state" class="space-y-4" @submit="submitForm">
+  <UForm ref="form" :schema="FormSchema" :state="state" class="space-y-4" @submit="submitForm">
     <UFormGroup label="Nazwa" name="name">
       <UInput v-model="state.name" size="lg" placeholder="Zupa dyniowa" />
     </UFormGroup>

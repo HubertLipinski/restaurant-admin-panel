@@ -65,11 +65,11 @@ export const useDishStore = defineStore('dish', () => {
   async function fetchData(): void {
     loading.value = true
     const { data } = await useApiFetch<Dish[]>(apiPath)
-    list.value = data.value
+    list.value = data.value.data
     loading.value = false
   }
 
-  async function createDish(data: Dish): void {
+  async function createDish(data: Dish): boolean {
     const raw: Dish = toRaw<Dish>(data)
 
     const formData = new FormData()
@@ -77,12 +77,24 @@ export const useDishStore = defineStore('dish', () => {
       formData.append(item, raw[item])
     }
 
-    await useApiFetch<Dish[]>(apiPath, {
+    const {data: response, error} = await useApiFetch<ApiResponse<Dish>>(apiPath, {
       method: 'POST',
       body: formData,
+      headers: {
+        accept: 'application/json',
+      },
     })
 
+    if (error.value.data) {
+      throw createError({
+        message: error.value.data.message,
+        code: error.value.data.statusCode,
+        errors: error.value.data.errors,
+      })
+    }
+
     success('Potrawa została pomyślnie utworzona')
+    return true
   }
 
   async function updateDish(id: number, data: Dish): void {
@@ -107,7 +119,40 @@ export const useDishStore = defineStore('dish', () => {
     success('Potrawa została pomyślnie usunięta')
   }
 
+  async function handleForm(data: Dish, type: 'edit' | 'create', form: Ref<Form>) {
+    const { formErrorMap } = useFormUtils();
+
+    const raw: Dish = toRaw<Dish>(data)
+    const formData = new FormData()
+    for (const item in raw) {
+      if (raw[item]) {
+        formData.append(item, raw[item])
+      }
+    }
+
+    let path = apiPath
+    if (type === 'edit') {
+      path += `/${data.id}?_method=PUT`
+    }
+    const { data: response, error } = await useApiFetch<ApiResponse<Dish>>(path, {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (error.value) {
+      const errors = error.value.data.errors
+      console.log(formErrorMap(errors));
+      form.value.setErrors(formErrorMap(errors))
+      return
+    }
+
+    success('Potrawa została pomyślnie ' + (type === 'create' ? 'utworzona' : 'zaktualizowana'))
+
+    await navigateTo('/dishes')
+  }
+
   return {
+    apiPath,
     loading,
     list,
     columns,
@@ -115,5 +160,6 @@ export const useDishStore = defineStore('dish', () => {
     createDish,
     updateDish,
     deleteDish,
+    handleForm,
   }
 })
