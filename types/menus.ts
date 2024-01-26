@@ -9,9 +9,7 @@ export interface Menu {
   updated_at: string | null
 }
 
-export type MenuFilterType = 'active' | 'inactive' | 'all' | null
-
 export interface MenuType {
   name: string
-  value: MenuFilterType
+  value: number | null
 }

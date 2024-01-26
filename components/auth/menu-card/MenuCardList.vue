@@ -45,19 +45,18 @@ const columnsTable = computed(() => columns.filter(column => selectedColumns.val
 const statusFilter: MenuType[] = [
   {
     name: 'Wszystkie',
-    value: 'all',
+    value: null,
   },
   {
     name: 'Aktywny',
-    value: 'active',
+    value: 1,
   },
   {
     name: 'Nieaktywny',
-    value: 'inactive',
+    value: 0,
   },
 ]
 const selectedStatus = ref(statusFilter[0])
-
 
 const actions = (row: Menu) => [
   [
@@ -98,18 +97,18 @@ const resetFilters = () => {
   selectedStatus.value = statusFilter[0]
 }
 
-const sort = ref({ column: 'id', direction: 'desc' as const })
+const sort = ref({ column: 'id', direction: 'asc' as const })
 const page = ref(1)
 const pageCount = ref(5)
 const pageTotal = ref(null)
 const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1)
 const pageTo = computed(() => Math.min(page.value * pageCount.value, pageTotal.value))
 
-const { data: response, pending } = await useLazyAsyncData<{
+const { data: response, pending, refresh } = await useLazyAsyncData<{
   data: ApiResponse<Menu>
 }>('menus', () => useApiFetch(store.apiPath, {
   query: {
-    type: selectedStatus.value.value,
+    active: selectedStatus.value.value,
     query: search.value,
     page: page.value,
     per_page: pageCount.value,
@@ -118,7 +117,7 @@ const { data: response, pending } = await useLazyAsyncData<{
   },
 }), {
   default: () => [],
-  watch: [page, search, pageCount, sort, selectedStatus],
+  watch: [page, search, pageCount, selectedStatus],
 })
 
 watch(pageCount, () => {
@@ -192,7 +191,7 @@ watch(response, (response: ApiResponse<Menu>) => {
           icon="i-heroicons-funnel"
           color="gray"
           size="xs"
-          :disabled="search === '' && selectedStatus.value === 'all'"
+          :disabled="search === '' && selectedStatus.value === null"
           @click="resetFilters"
         >
           Resetuj
@@ -213,6 +212,7 @@ watch(response, (response: ApiResponse<Menu>) => {
       class="w-full"
       :ui="{ td: { base: 'max-w-[0] truncate' } }"
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...'}"
+      @update:sort="refresh"
     >
       <template #id-data="{ row }">
         <p class="ml-3">{{ row.id }}</p>

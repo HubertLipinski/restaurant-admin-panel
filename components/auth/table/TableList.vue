@@ -91,7 +91,7 @@ const pageTotal = ref(null)
 const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1)
 const pageTo = computed(() => Math.min(page.value * pageCount.value, pageTotal.value))
 
-const { data: response, pending } = await useLazyAsyncData<{ data: ApiResponse<Table> }>('tables', () => useApiFetch(store.apiPath, {
+const { data: response, pending, refresh } = await useLazyAsyncData<{ data: ApiResponse<Table> }>('tables', () => useApiFetch(store.apiPath, {
   query: {
     query: search.value,
     page: page.value,
@@ -101,7 +101,7 @@ const { data: response, pending } = await useLazyAsyncData<{ data: ApiResponse<T
   },
 }), {
   default: () => [],
-  watch: [page, search, pageCount, sort],
+  watch: [page, search, pageCount],
 })
 
 watch(pageCount, () => {
@@ -187,6 +187,7 @@ watch(response, (response: ApiResponse<Table>) => {
       class="w-full"
       :ui="{ td: { base: 'max-w-[0] truncate' } }"
       :loading-state="{ icon: 'i-heroicons-arrow-path-20-solid', label: 'Ładowanie...'}"
+      @update:sort="refresh"
     >
       <template #id-data="{ row }">
         <p class="ml-3">{{ row.id }}</p>
