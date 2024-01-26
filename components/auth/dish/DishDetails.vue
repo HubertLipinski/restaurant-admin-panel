@@ -8,7 +8,9 @@ const props = defineProps<DishDetailsProps>()
 <template>
   <div>
     <div class="my-4">
-      <img v-if="props.dish.image_url" :src="props.dish.image_url" :alt="props.dish.name" />
+      <div v-if="props.dish.image_url" class="xs:w-1/2 md:w-3/4 lg:w-5/12">
+      <img :src="props.dish.image_url" :alt="props.dish.name"  class="h-auto max-w-full"/>
+      </div>
       <span v-else class="font-bold">Brak zdjęcia</span>
     </div>
     <div class="flex flex-col gap-y-2 mb-6">
