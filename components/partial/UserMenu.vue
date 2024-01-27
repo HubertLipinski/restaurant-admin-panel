@@ -18,8 +18,11 @@ const items = [
   ],
   [
     {
-      label: 'Ustawienia',
+      label: 'Mój profil',
       icon: 'i-heroicons-cog-8-tooth',
+      click: () => {
+        navigateTo({ path: '/profile' })
+      },
     },
   ],
 
@@ -41,10 +44,10 @@ const items = [
     :items="items"
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-start' }"
-    class="md:w-full">
-    <UButton :label="user?.email ?? '-'" variant="ghost" :block="true" class="justify-evenly">
+    class="md:w-full w-full">
+    <UButton :label="user?.email ?? '-'" variant="ghost" :block="true" class="justify-evenly text-left md:text-center text-sm py-3 border-2 border-primary-100/50 hover:bg-primary-100">
       <template #leading>
-        <UAvatar src="https://via.placeholder.com/150" size="md" />
+<!--        <UAvatar src="https://via.placeholder.com/150" size="md" />-->
       </template>
     </UButton>
     <template #account="{ item }">
@@ -55,7 +58,7 @@ const items = [
         </p>
         <p class="truncate text-gray-800 dark:text-white mt-2">Rola użytkownika</p>
         <span class="truncate font-medium text-gray-900 dark:text-white">
-          {{ user?.privilegesLevel ?? 'Brak roli' }}
+          {{ user?.role_label ?? 'Brak roli' }}
         </span>
       </div>
     </template>

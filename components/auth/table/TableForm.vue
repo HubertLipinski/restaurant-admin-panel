@@ -25,7 +25,7 @@ if (props.table) {
 
 const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
-  props.method === 'create' ? store.createTable(event.data) : store.updateTable(props.table.id, event.data)
+  await props.method === 'create' ? store.createTable(event.data) : store.updateTable(props.table.id, event.data)
   await navigateTo('/tables')
 }
 </script>

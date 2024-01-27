@@ -1,6 +1,6 @@
 import type { ComputedGetter } from 'vue'
 import type { VerticalNavigationLink } from '#ui/types'
-import { UserPrivilegesLevel } from '~/types/user'
+import { UserRole } from '~/types/user'
 
 export const useNavStore = defineStore('nav', () => {
   const route = useRouter()
@@ -11,36 +11,42 @@ export const useNavStore = defineStore('nav', () => {
       label: 'Dashboard',
       to: '/dashboard',
       icon: 'heroicons-outline:document-report',
+      roles: null,
     },
     {
       label: 'Stoły',
       to: '/tables',
       icon: 'i-ic-round-table-restaurant',
+      roles: null,
     },
     {
       label: 'Potrawy',
       to: '/dishes',
       icon: 'i-healthicons-hot-meal',
+      roles: null,
     },
     {
       label: 'Karty menu',
       to: '/menus',
       icon: 'i-bx-food-menu',
+      roles: null,
+    },
+    {
+      label: 'Użytkownicy',
+      to: '/users',
+      icon: 'heroicons-outline:user-group',
+      roles: ['Admin'],
     },
   ]
 
-  // TODO: for now all roles have the same navigation
-  const roleNavigation: Pick<UserPrivilegesLevel, VerticalNavigationLink[]> = {
-    [UserPrivilegesLevel['Admin']]: navigation,
-    [UserPrivilegesLevel['Waiter']]: navigation,
-    [UserPrivilegesLevel['Kitchen']]: navigation,
-    [UserPrivilegesLevel['Guest']]: navigation,
-  }
-
   const roleBasedNavigation: ComputedGetter<VerticalNavigationLink[] | null> = computed(
     (): VerticalNavigationLink[] | null => {
-      const role: UserPrivilegesLevel = user.value?.privilegesLevel ?? 3
-      const nav = roleNavigation[role] ?? null
+      const role: UserRole = user.value?.role ?? UserRole.Guest
+
+      let nav = navigation;
+      if (role !== UserRole.Admin) {
+        nav = nav.filter((item) => item.roles === null || item.roles.includes(role))
+      }
 
       if (!nav) {
         return null

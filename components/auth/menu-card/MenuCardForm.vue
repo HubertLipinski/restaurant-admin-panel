@@ -28,7 +28,7 @@ if (props.menu) {
 }
 
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
-  props.method === 'create' ? store.createMenu(event.data) : store.updateMenu(props.menu.id, event.data)
+  await props.method === 'create' ? store.createMenu(event.data) : store.updateMenu(props.menu.id, event.data)
   await navigateTo('/menus')
 }
 

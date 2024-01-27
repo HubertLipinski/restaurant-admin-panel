@@ -1,13 +1,14 @@
-export const enum UserPrivilegesLevel {
-  Admin = <number>0,
-  Waiter = <number>1,
-  Kitchen = <number>2,
-  Guest = <number>3,
+export const enum UserRole {
+  Admin = <string> 'Admin',
+  Waiter = <string> 'Waiter',
+  Kitchen = <string> 'Kitchen',
+  Guest = <string> 'Guest',
 }
 
 export interface User {
   id: number
   name: string
   email: string,
-  privilegesLevel: UserPrivilegesLevel
+  role: UserRole | null,
+  role_label: string | null,
 }
