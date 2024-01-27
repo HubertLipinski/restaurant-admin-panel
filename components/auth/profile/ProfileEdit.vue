@@ -111,10 +111,10 @@ watch(state.value, () => {
       </div>
 
       <template #footer>
-      <UButton type="submit" size="lg" class="float-right mb-3" variant="solid" :loading="loading" :disabled="submitDisabled">
-        Aktualizuj
-      </UButton>
-    </template>
+        <UButton type="submit" size="lg" class="float-right mb-3" variant="solid" :loading="loading" :disabled="submitDisabled">
+          Aktualizuj
+        </UButton>
+      </template>
     </UCard>
   </UForm>
 </template>
