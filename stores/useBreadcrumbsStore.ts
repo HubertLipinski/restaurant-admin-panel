@@ -9,11 +9,11 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', () => {
 
     let path = ''
 
-    params.forEach((param, index) => {
+    params.forEach((param) => {
       path = `${path}/${param}`
       const match = router.resolve(path)
 
-      if (match.name !== null) {
+      if (match.name) {
         crumbs.push({
           label: match.name,
           to: match.path,
