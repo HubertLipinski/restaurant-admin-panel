@@ -127,9 +127,9 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       </div>
     </UFormGroup>
 
-    <UFormGroup label="Aktywna" name="active">
-      <UToggle v-model="state.active" size="md" />
-    </UFormGroup>
+<!--    <UFormGroup label="Aktywna" name="active">-->
+<!--      <UToggle v-model="state.active" size="md" />-->
+<!--    </UFormGroup>-->
 
     <div class="py-2">
       <hr class="my-4" />

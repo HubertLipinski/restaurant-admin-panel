@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import MenuDishes from '~/components/auth/menu-card/MenuDishes.vue'
+
 interface MenuDetailsProps {
   menu: Menu
 }
@@ -35,8 +37,10 @@ const props = defineProps<MenuDetailsProps>()
     <hr class="mb-8" />
 
     <div>
-      <h3 class="font-bold text-xl">Lista wybranych dań</h3>
-      <p>todo</p>
+      <h3 class="font-bold text-xl">Lista wybranych dań:</h3>
+      <div class="w-full mt-4">
+        <MenuDishes :dishes="props.menu.dishes" />
+      </div>
     </div>
   </div>
 </template>

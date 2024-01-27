@@ -9,7 +9,7 @@ const props = defineProps<DishDetailsProps>()
   <div>
     <div class="my-4">
       <div v-if="props.dish.image_url" class="xs:w-1/2 md:w-3/4 lg:w-5/12">
-      <img :src="props.dish.image_url" :alt="props.dish.name"  class="h-auto max-w-full"/>
+        <img :src="props.dish.image_url" :alt="props.dish.name" class="h-auto max-w-full" />
       </div>
       <span v-else class="font-bold">Brak zdjęcia</span>
     </div>
@@ -45,16 +45,16 @@ const props = defineProps<DishDetailsProps>()
           <p>{{ props.dish.proteins }}</p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <h2 class="text-[1em] font-bold">Status:</h2>
-        <p>
-          <UBadge
-            size="sm"
-            :label="props.dish.active ? 'Aktywny' : 'Nieaktywny'"
-            :color="props.dish.active ? 'green' : 'rose'"
-            variant="outline" />
-        </p>
-      </div>
+<!--      <div class="flex items-center gap-2">-->
+<!--        <h2 class="text-[1em] font-bold">Status:</h2>-->
+<!--        <p>-->
+<!--          <UBadge-->
+<!--            size="sm"-->
+<!--            :label="props.dish.active ? 'Aktywny' : 'Nieaktywny'"-->
+<!--            :color="props.dish.active ? 'green' : 'rose'"-->
+<!--            variant="outline" />-->
+<!--        </p>-->
+<!--      </div>-->
       <div class="flex items-center gap-2" v-if="props.dish.created_at">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
         <p>{{ props.dish.created_at }}</p>
