@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { FormUpdateProfileSchema } from '~/schema/auth/user/FormSchema'
 import { z } from 'zod'
+import { FormUpdateProfileSchema } from '~/schema/auth/user/FormSchema'
 import type { User } from '~/types/user'
 
 const { formErrorMap } = useFormUtils();
 const { success } = useNotification()
 
-const { data: user }: { data: Ref<User> } = useAuth()
+const { data: user, getSession }: { data: Ref<User> } = useAuth()
 
 const state = ref({
   name: user.value?.name,
@@ -22,12 +22,12 @@ const submitDisabled = computed(() => {
 })
 
 const form = ref(null)
-const loading = ref(false);
+const loading = ref(false)
 
-function resetForm() {
+function resetForm(data: User) {
   state.value = {
-    name: user.value?.name,
-    email: user.value?.email,
+    name: data.name,
+    email: data.email,
     current_password: '',
     password: '',
     password_confirmation: '',
@@ -36,33 +36,29 @@ function resetForm() {
 }
 async function submitForm(event: Event<z.output<typeof FormUpdateProfileSchema>>) {
   if (loading.value) {
-    return;
+    return
   }
 
-  loading.value = true;
+  loading.value = true
 
-
-  const data = {...event.data}
+  const data = { ...event.data }
 
   if (!data.changePassword) {
-    delete data.current_password;
-    delete data.password;
-    delete data.password_confirmation;
+    delete data.current_password
+    delete data.password
+    delete data.password_confirmation
   }
 
   if (data.email === user.value.email) {
-    delete data.email;
+    delete data.email
   }
-
-  console.log(data, state.value)
-
 
   const { data: response, error } = await useApiFetch<ApiResponse<User>>('/user/profile', {
     method: 'PUT',
     body: data,
   })
 
-  loading.value = false;
+  loading.value = false
 
   if (error.value) {
     const errors = error.value.data.errors
@@ -70,7 +66,7 @@ async function submitForm(event: Event<z.output<typeof FormUpdateProfileSchema>>
     return
   }
 
-  resetForm();
+  resetForm(response.value.data)
   success('Dane zostały pomyślnie zaktualizowane');
 }
 

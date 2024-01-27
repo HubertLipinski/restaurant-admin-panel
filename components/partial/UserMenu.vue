@@ -45,11 +45,11 @@ const items = [
     :ui="{ item: { disabled: 'cursor-text select-text' } }"
     :popper="{ placement: 'bottom-start' }"
     class="md:w-full w-full">
-    <UButton :label="user?.email ?? '-'" variant="ghost" :block="true" class="justify-evenly text-left md:text-center text-sm py-3 border-2 border-primary-100/50 hover:bg-primary-100">
-      <template #leading>
-<!--        <UAvatar src="https://via.placeholder.com/150" size="md" />-->
-      </template>
-    </UButton>
+    <UButton
+      :label="user?.email ?? '-'"
+      variant="ghost"
+      :block="true"
+      class="justify-evenly text-left md:text-center text-sm py-3 border-2 border-primary-100/50 hover:bg-primary-100" />
     <template #account="{ item }">
       <div class="text-left">
         <p>Zalogowany jako</p>
@@ -58,7 +58,7 @@ const items = [
         </p>
         <p class="truncate text-gray-800 dark:text-white mt-2">Rola użytkownika</p>
         <span class="truncate font-medium text-gray-900 dark:text-white">
-          {{ user?.role_label ?? 'Brak roli' }}
+          {{ user?.role_name ?? 'Brak roli' }}
         </span>
       </div>
     </template>
