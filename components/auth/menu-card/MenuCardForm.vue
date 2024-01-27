@@ -13,49 +13,51 @@ const props = withDefaults(defineProps<MenuCardFormProps>(), {
 })
 
 const store = useMenuStore()
-const dishStore = useDishStore()
+const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 
 const state = ref({
   name: '',
   active: true,
-  dishesId: [],
+  dishes: [],
 })
 
 if (props.menu) {
   state.value.name = props.menu.name
-  state.value.active = props.menu.active
-  // state.value.dishesId = props.menu.dishes.map((dish) => dish.id)
-  state.value.dishesId = []
+  state.value.active = !!props.menu.active
+  state.value.dishes = props.menu.dishes.map((dish) => dish.id)
 }
 
-const { list: dishList } = storeToRefs(dishStore)
-
-onMounted(async () => {
-  if (dishList.value.length === 0) {
-    await dishStore.fetchData()
-  }
-})
-
-const availableDishes = computed(() => {
-  return []
-  return dishList.value.map((dish) => {
-    return {
-      name: dish.name,
-      value: dish.id,
-    }
-  })
-})
-
-const selectedNames = computed(() => {
-  return []
-  // return dishList.value.filter((dish) => state.value.dishesId.includes(dish.id)).map((dish) => dish.name)
-})
-
-const submitDisabled = computed(() => !FormSchema.safeParse(state.value).success)
 async function submitForm(event: Event<z.output<typeof FormSchema>>) {
   props.method === 'create' ? store.createMenu(event.data) : store.updateMenu(props.menu.id, event.data)
   await navigateTo('/menus')
 }
+
+const loading = ref(false)
+const query = computed(() => props.method === 'create' ? 'unassigned=true' : `menu_id=${props.menu.id}&unassigned=true`)
+
+async function search(q) {
+  loading.value = true
+  const { data: response } = await useApiFetch(`/dishes?${query.value}`, {
+    query: {
+      query: q,
+      per_page: 50,
+    },
+  })
+  loading.value = false
+
+  return response.value.data.map(dish => ({
+    ...dish,
+    avatar: { src: dish.image_url ? dish.image_url : null, size: 'xl' },
+  }))
+}
+
+const computedHelp = computed(() => {
+  if (props.method === 'create') {
+    return 'Możesz wybrać tylko te potrawy, które nie są przypisane do żadnego menu.'
+  }
+  return 'Edytuj przypisane potrawy lub dodaj te, ktore nie są przypisane do żadnego menu.'
+})
+
 </script>
 
 <template>
@@ -71,21 +73,28 @@ async function submitForm(event: Event<z.output<typeof FormSchema>>) {
       <hr class="my-4" />
     </div>
 
-    <UFormGroup label="Wybierz potrawy" name="dishesId">
+    <UFormGroup
+      label="Wybierz potrawy"
+      name="dishes"
+      :help="computedHelp"
+    >
       <USelectMenu
-        v-model="state.dishesId"
-        :options="availableDishes"
-        value-attribute="value"
+        v-model="state.dishes"
+        :loading="loading"
+        :searchable="search"
+        value-attribute="id"
         option-attribute="name"
         multiple
-        searchable
-        searchable-placeholder="Wyszukaj potrawę...">
+        searchable-placeholder="Wyszukaj potrawę..."
+        size="lg"
+        :popper="{ placement: 'auto' }"
+      >
         <template #label>
-          <span v-if="selectedNames.length" class="truncate">{{ selectedNames.join(', ') }}</span>
-          <span v-else>-</span>
+          <span v-if="state?.dishes?.length" class="truncate">Liczba wybranych pozycji: {{ state?.dishes?.length }}</span>
+          <span v-else>Wybierz potrawy</span>
         </template>
         <template #option-empty="{ query }">
-          Nie znaleziono szukanej frazy <q>{{ query }}</q>
+          Nie znaleziono szukanej potrawy: <strong>{{ query }}</strong>
         </template>
       </USelectMenu>
     </UFormGroup>

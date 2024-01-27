@@ -32,7 +32,6 @@ export const useDishStore = defineStore('dish', () => {
 
     if (error.value) {
       const errors = error.value.data.errors
-      console.log(formErrorMap(errors));
       form.value.setErrors(formErrorMap(errors))
       return
     }
