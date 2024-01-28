@@ -7,7 +7,7 @@ interface ErrorResponse {
   }
 }
 interface ApiResponse<T> {
-  data: T[] | null,
+  data: T[] | T | null,
   error?: ErrorResponse,
   links?: any
   meta?: any

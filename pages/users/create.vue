@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UserForm from '~/components/auth/users/UserForm.vue'
+import { UserRole } from '~/types/user'
 
 useHead({
   title: 'Utwórz użytkownika',
@@ -7,8 +8,9 @@ useHead({
 
 definePageMeta({
   layout: 'auth',
-  middleware: ['role:admin'],
   name: 'Utwórz użytkownika',
+  middleware: ['user-role'],
+  requiredRole: [UserRole.Admin],
 })
 </script>
 

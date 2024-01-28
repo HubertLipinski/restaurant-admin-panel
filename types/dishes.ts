@@ -1,5 +1,7 @@
 export interface Dish {
   id: number
+  menu_id: number | null,
+  quantity?: number | null,
   name: string
   price: number
   kcal: number

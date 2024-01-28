@@ -14,28 +14,34 @@ export const useNavStore = defineStore('nav', () => {
       roles: null,
     },
     {
-      label: 'Stoły',
-      to: '/tables',
-      icon: 'i-ic-round-table-restaurant',
-      roles: null,
-    },
-    {
-      label: 'Potrawy',
-      to: '/dishes',
-      icon: 'i-healthicons-hot-meal',
-      roles: null,
-    },
-    {
-      label: 'Karty menu',
-      to: '/menus',
-      icon: 'i-bx-food-menu',
-      roles: null,
+      label: 'Zamówienia',
+      to: '/orders',
+      icon: 'heroicons-outline:shopping-cart',
+      roles: [UserRole.Admin, UserRole.Waiter, UserRole.Kitchen],
     },
     {
       label: 'Użytkownicy',
       to: '/users',
       icon: 'heroicons-outline:user-group',
-      roles: ['Admin'],
+      roles: [UserRole.Admin],
+    },
+    {
+      label: 'Stoły',
+      to: '/tables',
+      icon: 'i-ic-round-table-restaurant',
+      roles: [UserRole.Admin],
+    },
+    {
+      label: 'Potrawy',
+      to: '/dishes',
+      icon: 'i-healthicons-hot-meal',
+      roles: [UserRole.Admin],
+    },
+    {
+      label: 'Karty menu',
+      to: '/menus',
+      icon: 'i-bx-food-menu',
+      roles: [UserRole.Admin],
     },
   ]
 

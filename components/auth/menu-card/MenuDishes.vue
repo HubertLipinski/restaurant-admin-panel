@@ -3,57 +3,60 @@ import type { Dish } from '~/types/dishes'
 
 interface DishDetailsProps {
   dishes: Dish[]
+  columns?: [],
+  showAction?: boolean
 }
 
-const props = defineProps<DishDetailsProps>()
-
-const columns = [
-  {
-    key: 'image_url',
-    label: 'Zdjęcie',
-    sortable: false,
-  },
-  {
-    key: 'name',
-    label: 'Nazwa',
-    sortable: true,
-  },
-  {
-    key: 'price',
-    label: 'Cena',
-    sortable: true,
-  },
-  {
-    key: 'kcal',
-    label: 'Kalorie',
-    sortable: true,
-  },
-  {
-    key: 'fat',
-    label: 'Tłuszcz',
-    sortable: true,
-  },
-  {
-    key: 'saturated_fat',
-    label: 'Tłuszcz nasycony',
-    sortable: true,
-  },
-  {
-    key: 'carbs',
-    label: 'Węglowodany',
-    sortable: true,
-  },
-  {
-    key: 'proteins',
-    label: 'Białko',
-    sortable: true,
-  },
-  {
-    key: 'actions',
-    label: 'Akcja',
-    sortable: false,
-  },
-]
+const props = withDefaults(defineProps<DishDetailsProps>(), {
+  columns: () => [
+    {
+      key: 'image_url',
+      label: 'Zdjęcie',
+      sortable: false,
+    },
+    {
+      key: 'name',
+      label: 'Nazwa',
+      sortable: true,
+    },
+    {
+      key: 'price',
+      label: 'Cena',
+      sortable: true,
+    },
+    {
+      key: 'kcal',
+      label: 'Kalorie',
+      sortable: true,
+    },
+    {
+      key: 'fat',
+      label: 'Tłuszcz',
+      sortable: true,
+    },
+    {
+      key: 'saturated_fat',
+      label: 'Tłuszcz nasycony',
+      sortable: true,
+    },
+    {
+      key: 'carbs',
+      label: 'Węglowodany',
+      sortable: true,
+    },
+    {
+      key: 'proteins',
+      label: 'Białko',
+      sortable: true,
+    },
+    {
+      key: 'actions',
+      label: 'Akcja',
+      sortable: false,
+    },
+  ],
+  showAction: true,
+})
 
 const actions = (row: Dish) => [
   [
@@ -77,7 +80,7 @@ const actions = (row: Dish) => [
 <template>
   <UTable
     :rows="props.dishes"
-    :columns="columns"
+    :columns="props.columns"
     class="w-full"
     sort-asc-icon="i-heroicons-arrow-up"
     sort-desc-icon="i-heroicons-arrow-down"
@@ -90,7 +93,7 @@ const actions = (row: Dish) => [
       <span v-else>Brak</span>
     </template>
 
-    <template #actions-data="{ row }">
+    <template v-if="showAction" #actions-data="{ row }">
       <UDropdown :items="actions(row)">
         <template #item="{ item }">
           <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500" dynamic />

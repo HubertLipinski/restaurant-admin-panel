@@ -10,9 +10,10 @@ export default function () {
     })
   }
 
-  const error = (message: string) => {
+  const error = (message: string, title: string = 'Oops...', id: string = '') => {
     toast.add({
-      title: 'Oops...',
+      id,
+      title,
       color: 'red',
       description: message,
       icon: 'i-heroicons-x-circle',

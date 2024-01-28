@@ -11,7 +11,18 @@ export const useBreadcrumbsStore = defineStore('breadcrumbs', () => {
 
     params.forEach((param) => {
       path = `${path}/${param}`
-      const match = router.resolve(path)
+
+      let match = { name: null }
+
+      // fix missing route console warning
+      const missingRoutes = [
+        '/users/([0-9]+)$',
+        '/orders/([0-9]+)$',
+      ]
+
+      if (!missingRoutes.some(route => path.match(route))) {
+        match = router.resolve(path)
+      }
 
       if (match.name) {
         crumbs.push({

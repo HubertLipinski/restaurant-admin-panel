@@ -1,6 +1,6 @@
 <script setup lang="ts">
-
 import UsersList from '~/components/auth/users/UsersList.vue'
+import { UserRole } from '~/types/user'
 
 useHead({
   title: 'Użytkownicy',
@@ -8,8 +8,9 @@ useHead({
 
 definePageMeta({
   layout: 'auth',
-  middleware: ['role:admin'],
   name: 'Użytkownicy',
+  middleware: ['user-role'],
+  requiredRole: [UserRole.Admin],
 })
 </script>
 

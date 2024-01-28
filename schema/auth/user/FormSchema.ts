@@ -33,7 +33,6 @@ export const FormUpdateSchema = z.object({
   passwordCheck('password_confirmation', data, refinementContext)
 })
 
-
 export const FormUpdateProfileSchema = z.object({
   name: z.string({ required_error: 'Pole jest wymagane' }).min(3, { message: 'Pole powinno zawierać min. 3 znaki' }),
   email: z.string({ required_error: 'Pole jest wymagane' }).email({ message: 'Pole powinno zawierać poprawny adres email' }),

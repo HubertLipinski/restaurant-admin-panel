@@ -1,9 +1,12 @@
 <script setup lang="ts">
 interface TableDetailsProps {
   table: Table
+  showDetails?: boolean
 }
 
-const props = defineProps<TableDetailsProps>()
+const props = withDefaults(defineProps<TableDetailsProps>(), {
+  showDetails: true,
+})
 </script>
 
 <template>
@@ -17,11 +20,11 @@ const props = defineProps<TableDetailsProps>()
         <h2 class="text-[1em] font-bold">Liczba miejsc:</h2>
         <p>{{ props.table.seats }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.created_at">
+      <div class="flex items-center gap-2" v-if="props.table.created_at && showDetails">
         <h2 class="text-[1em] font-bold">Data utworzenia:</h2>
         <p>{{ props.table.created_at }}</p>
       </div>
-      <div class="flex items-center gap-2" v-if="props.table.updated_at">
+      <div class="flex items-center gap-2" v-if="props.table.updated_at && showDetails">
         <h2 class="text-[1em] font-bold">Data aktualizacji:</h2>
         <p>{{ props.table.updated_at }}</p>
       </div>
