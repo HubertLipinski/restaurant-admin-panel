@@ -171,8 +171,8 @@ watch(response, (response: ApiResponse<Order>) => {
     }"
   >
     <!-- Filters -->
-    <div class="flex items-center justify-between gap-3 px-4 py-3">
-      <UInput v-model.trim="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Szukaj..." />
+    <div class="flex items-center justify-end gap-3 px-4 py-3">
+<!--      <UInput v-model.trim="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Szukaj..." />-->
 
       <UFormGroup label="Status" size="xs">
         <USelectMenu v-model="selectedStatus"
