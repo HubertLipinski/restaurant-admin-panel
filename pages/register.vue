@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+await navigateTo('/login', { replace: true, redirectCode: 301 })
+
 useHead({
   title: 'Rejestracja',
 })

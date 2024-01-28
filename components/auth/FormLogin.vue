@@ -57,6 +57,7 @@ onErrorCaptured((_) => {
         Zaloguj się
       </UButton>
       <UButton
+        v-if="false"
         label="Zarejestruj się"
         color="gray"
         variant="link"
