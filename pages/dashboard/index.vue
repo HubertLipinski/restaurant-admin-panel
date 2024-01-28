@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DashboardPanel from '~/components/auth/dashboard/DashboardPanel.vue'
+
 useHead({
   title: 'Dashboard',
 })
@@ -11,9 +13,8 @@ definePageMeta({
 </script>
 
 <template>
-  <UContainer>
-    <div class="py-4 mt-4">
-      <h1>Dashboard</h1>
-    </div>
-  </UContainer>
+  <section class="mt-2.5 py-2">
+    <TheSectionHeader title="Dashboard" subtitle="Zobacz statystyki swojej kuchnii" />
+    <DashboardPanel />
+  </section>
 </template>
