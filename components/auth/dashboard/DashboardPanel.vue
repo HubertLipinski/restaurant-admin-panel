@@ -5,7 +5,7 @@ import StatisticCard from '~/components/auth/dashboard/StatisticCard.vue'
 
 <template>
   <div class="flex flex-col md:flex-row flex-wrap justify-center md:justify-evenly gap-5 md:gap-7">
-    <UChip size="3xl" color="primary">
+    <UChip size="3xl" color="primary" :show="true">
       <StatisticCard title="Liczba zamówień" value="1" icon="heroicons-outline:shopping-cart" route="/orders" />
     </UChip>
     <StatisticCard title="Użytkownicy" value="2" icon="heroicons-outline:user-group" route="/users" />

@@ -12,7 +12,7 @@ const props: StatisticCardProps = defineProps<StatisticCardProps>()
 </script>
 
 <template>
-  <UCard class="text-center w-full md:max-w-[200px]">
+  <UCard class="text-center w-full md:w-[220px]">
     <template #header>
       <h2 class="text-md font-medium">{{ props.title }}</h2>
     </template>
