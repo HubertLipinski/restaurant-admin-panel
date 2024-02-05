@@ -30,7 +30,7 @@ export default function () {
   const paymentStatuses = [
     { name: 'Oczekujące', value: PaymentStatus.PENDING },
     { name: 'Nieudane', value: PaymentStatus.FAILED },
-    { name: 'Zakończone', value: PaymentStatus.COMPLETED }
+    { name: 'Zakończone', value: PaymentStatus.COMPLETED },
   ]
 
   const paymentStatusesColors = {

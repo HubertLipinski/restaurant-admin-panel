@@ -264,8 +264,8 @@ watch(response, (response: ApiResponse<Order>) => {
       <template #payment-data="{ row }">
         <UBadge
           size="sm"
-          :label="row.status_label"
-          :color="paymentStatusesColors[row.status]"
+          :label="row.payments[0].status_label || 'Błąd!'"
+          :color="paymentStatusesColors[row.payments[0].status]"
           variant="solid"
         />
       </template>
