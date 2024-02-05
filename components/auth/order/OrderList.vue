@@ -39,7 +39,7 @@ const columns = [
   {
     key: 'payment',
     label: 'Status płatności',
-    sortable: true,
+    sortable: false,
   },
   {
     key: 'order_date',
