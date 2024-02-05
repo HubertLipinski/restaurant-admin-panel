@@ -7,7 +7,7 @@ import { type User, UserRole } from '~/types/user'
 const store = useOrderStore()
 const { isRevealed, reveal, confirm, cancel } = useConfirmDialog()
 const { errorResponse } = useNotification()
-const { statuses, statusLabelColors } = useOrder()
+const { statuses, statusLabelColors, paymentStatuses, paymentStatusesColors } = useOrder()
 const { data: user }: { data: Ref<User> } = useAuth()
 
 const columns = [
@@ -34,6 +34,11 @@ const columns = [
   {
     key: 'status',
     label: 'Status',
+    sortable: true,
+  },
+  {
+    key: 'payment',
+    label: 'Status płatności',
     sortable: true,
   },
   {
@@ -73,6 +78,15 @@ const statusFilter = [
   },
   ...statuses,
 ]
+
+const paymentStatusFilter = [
+  {
+    name: 'Wszystkie',
+    value: null,
+  },
+  ...paymentStatuses,
+];
+
 const selectedStatus = ref(statusFilter[0])
 
 const { hasRole } = usePermission()
@@ -243,6 +257,15 @@ watch(response, (response: ApiResponse<Order>) => {
           size="sm"
           :label="row.status_label"
           :color="statusLabelColors[row.status]"
+          variant="solid"
+        />
+      </template>
+
+      <template #payment-data="{ row }">
+        <UBadge
+          size="sm"
+          :label="row.status_label"
+          :color="paymentStatusesColors[row.status]"
           variant="solid"
         />
       </template>

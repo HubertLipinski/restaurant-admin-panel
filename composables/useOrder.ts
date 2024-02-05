@@ -1,4 +1,4 @@
-import { OrderStatus } from '~/types/order'
+import { OrderStatus, PaymentStatus } from '~/types/order'
 
 export default function () {
   const statuses: OrderStatus[] = [
@@ -27,8 +27,22 @@ export default function () {
     [OrderStatus.COMPLETED]: 'green',
   }
 
+  const paymentStatuses = [
+    { name: 'Oczekujące', value: PaymentStatus.PENDING },
+    { name: 'Nieudane', value: PaymentStatus.FAILED },
+    { name: 'Zakończone', value: PaymentStatus.COMPLETED }
+  ]
+
+  const paymentStatusesColors = {
+    [PaymentStatus.PENDING]: 'yellow',
+    [PaymentStatus.FAILED]: 'red',
+    [PaymentStatus.COMPLETED]: 'green',
+  }
+
   return {
     statuses,
     statusLabelColors,
+    paymentStatuses,
+    paymentStatusesColors,
   }
 }
