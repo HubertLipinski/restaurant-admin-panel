@@ -6,8 +6,8 @@ const { signIn } = useAuth()
 const { success } = useNotification()
 
 const state = ref({
-  email: '',
-  password: '',
+  email: 'test@test.com',
+  password: 'password',
 })
 
 const form = ref()
